@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"<% if (typeof ngController !== 'undefined') { %> ng-app="sinead" ng-controller="<%= ngController %>"<% } %>>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="fragment" content="!" />
+
+    <title><%= title %></title>
+
+    <!--
+
+      Stylesheets
+      ========================
+
+      You can link any CSS, LESS, or image files in your `assets` directory
+      as you would normally: using <link/> tags.
+      
+    -->
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.2/css/foundation.min.css" />
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/linker/styles/font-awesome.css">
+    <link rel="stylesheet" href="/linker/styles/main.css">
+    <link rel="stylesheet" href="/linker/styles/alert-panels.css">
+    <link rel="stylesheet" href="/linker/styles/auth.css">
+    <!--STYLES END-->
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.1/modernizr.min.js"></script>
+
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" href="http://universal-ie6-css.googlecode.com/files/ie6.1.1.css" media="screen, projection">
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Include the view file for the current controller/route -->
+    <%- body %>
+
+
+    <!--
+
+      Client-side Javascript
+      ========================
+
+      You can import any js files in your `assets` directory as you would 
+      normally: using <script></script> tags.
+
+      Here's an example of importing a few dependencies, in order:
+    -->
+    <!-- Bring in the socket.io client -->
+    <script type="text/javascript" src="/js/socket.io.js"></script>
+    <!-- then beef it up with some convenience logic for talking to Sails.js -->
+    <script type="text/javascript" src="/js/sails.io.js"></script>
+    <!-- listen on socket.io for incoming messages -->
+    <script type="text/javascript" src="/js/app.js"></script>
+
+    <!--SCRIPTS-->
+    <script src="/linker/js/vendor/jquery.js"></script>
+    <script src="/linker/js/vendor/angular.js"></script>
+    <script src="/linker/js/vendor/angular-sanitize.js"></script>
+    <script src="/linker/js/vendor/angular-ui-router.js"></script>
+    <script src="/linker/js/vendor/angular-foundation.js"></script>
+    <script src="/linker/js/vendor/angular-foundation-tpls.js"></script>
+    <script src="/linker/js/app.js"></script>
+    <script src="/linker/js/cms/cms.js"></script>
+    <script src="/linker/js/www/www.js"></script>
+    <!--SCRIPTS END-->
+
+    <!--TEMPLATES-->
+    <script type="text/javascript" src="/templates/cms.tpls.js"></script>
+    <script type="text/javascript" src="/templates/www.tpls.js"></script>
+    <!--TEMPLATES END-->
+
+  </body>
+</html>

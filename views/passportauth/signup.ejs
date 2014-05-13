@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="large-6 columns">
+    <div class="signup-panel">
+      <p class="welcome"><%= __('Sign up') %></p>
+      <form role="form" action="/signup" method="post">
+        <div class="row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-user"></i></span>
+          </div>
+          <div class="small-10 columns">
+            <input type="text" name="name" placeholder="name" />
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-envelope"></i></span>
+          </div>
+          <div class="small-10 columns">
+            <input type="email" name="username" placeholder="email" />
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-lock"></i></span>
+          </div>
+          <div class="small-10 columns">
+            <input type="password" name="password" placeholder="password" />
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-lock"></i></span>
+          </div>
+          <div class="small-10 columns">
+            <input type="password" name="password2" placeholder="retype password" />
+          </div>
+        </div>
+        <input type="submit" class="button" value="Sign Up!" />
+      </form>
+      <p>Already have an account? <a href="/login">Login here &raquo</a></p>
+    </div>
+  </div>
+</div>

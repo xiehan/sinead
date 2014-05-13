@@ -1,0 +1,33 @@
+{
+  "name": "sinead",
+  "version": "0.0.0",
+  "description": "A content management system for the 21st century",
+  "author": {
+    "name": "Nara Kasbergen",
+    "email": "nara@nara-designs.com"
+  },
+  "repository": "",
+  "dependencies": {
+    "sails": "0.9.16",
+    "grunt": "0.4.1",
+    "sails-mysql": "~0.9.0",
+    "sails-disk": "~0.9.0",
+    "ejs": "0.8.4",
+    "optimist": "0.3.4",
+    "passport": "0.1.18",
+    "passport-local": "0.1.6",
+    "bcrypt": "0.7.7",
+    "async": "0.2.9",
+    "swagger-node-express": "~2.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "debug": "node debug app.js"
+  },
+  "main": "app.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "grunt-angular-templates": "^0.5.4"
+  }
+}

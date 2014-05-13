@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="large-6 columns">
+  <% if (typeof message !== 'undefined') { %>
+    <div class="row">
+      <div class="small-11 large-7 columns small-centered">
+        <div class="alert-panel alert" data-alert>
+          <div class="alert-panel-title">
+            Alert, alert!
+            <a href="#" class="alert-panel close">&times;</a>
+          </div>
+          <div class="alert-panel-message">
+            <%= message %>
+          </div>
+          <div class="alert-panel-action">
+            <a href="#" class="small button radius secondary">Cancel</a>
+            <a href="#" class="small button radius alert">Continue</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% } %>
+    <div class="login-panel">
+      <p class="welcome"><%= __('Please log in') %></p>
+      <form role="form" action="/login" method="post">
+        <div class="row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-envelope"></i></span>
+          </div>
+          <div class="small-10 columns">
+            <input type="email" name="username" placeholder="email" />
+          </div>
+        </div>
+        <div class="row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-lock"></i></span>
+          </div>
+          <div class="small-10 columns">
+            <input type="password" name="password" placeholder="password" />
+          </div>
+        </div>
+        <input type="submit" class="button" value="Log in" />
+      </form>
+      <p>Don't have an account? <a href="/signup">Sign up here &raquo</a></p>
+    </div>
+  </div>
+</div>

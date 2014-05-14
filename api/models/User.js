@@ -37,6 +37,18 @@ module.exports = {
       required: true,
       minLength: 6
     },
+    isAdmin: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+    isVerified: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+    canAuthor: {
+      type: 'boolean',
+      defaultsTo: false
+    },
     // Override toJSON instance method to remove password value
     toJSON: function () {
       var obj = this.toObject();

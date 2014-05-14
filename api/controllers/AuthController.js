@@ -7,6 +7,9 @@ var passport = require('passport');
 
 var AuthController = {
   login: function (req, res) {
+    if (req.isAuthenticated()) {
+      return res.redirect('/cms');
+    }
     var data = {
       username: req.flash('username')
     }
@@ -17,6 +20,9 @@ var AuthController = {
     res.view(data);
   },
   loginProcess: function (req, res, next) {
+    if (req.isAuthenticated()) {
+      return res.redirect('/cms');
+    }
     passport.authenticate('local', function (err, user, info) {
       if (err) {
         return next(err);
@@ -40,9 +46,15 @@ var AuthController = {
     res.redirect('/');
   },
   signup: function (req, res) {
+    if (req.isAuthenticated()) {
+      return res.redirect('/cms');
+    }
     res.view();
   },
   signupProcess: function (req, res, next) {
+    if (req.isAuthenticated()) {
+      return res.redirect('/cms');
+    }
     User.findOne({ email: req.body.username }).done(function (err, count) {
       if (err) {
         return next(err);

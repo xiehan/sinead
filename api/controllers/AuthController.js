@@ -5,7 +5,7 @@
 
 var passport = require('passport');
 
-var PassportAuthController = {
+var AuthController = {
   login: function (req, res) {
     var data = {
       username: req.flash('username')
@@ -22,7 +22,7 @@ var PassportAuthController = {
         return next(err);
       }
       if (!user) {
-        return res.view('passportauth/login', {
+        return res.view('auth/login', {
           username: req.body.username,
           message: info.message
         });
@@ -62,4 +62,4 @@ var PassportAuthController = {
   }
 };
 
-module.exports = PassportAuthController;
+module.exports = AuthController;

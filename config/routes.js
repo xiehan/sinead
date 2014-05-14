@@ -34,11 +34,11 @@ module.exports.routes = {
   //
   // Passport Auth Routes
   //
-  'get /login':   'PassportAuthController.login',
-  'post /login':  'PassportAuthController.loginProcess',
-  '/logout':      'PassportAuthController.logout',
-  'get /signup':  'PassportAuthController.signup',
-  'post /signup': 'PassportAuthController.signupProcess',
+  'get /login':   'AuthController.login',
+  'post /login':  'AuthController.loginProcess',
+  '/logout':      'AuthController.logout',
+  'get /signup':  'AuthController.signup',
+  'post /signup': 'AuthController.signupProcess',
 
   /*
   // But what if you want your home page to display

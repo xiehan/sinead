@@ -20,7 +20,7 @@ module.exports.policies = {
 
   MainController: {
     '*': true,
-    cms: 'isPassportAuthenticated'
+    cms: 'isAuthenticated'
   }
 };
 

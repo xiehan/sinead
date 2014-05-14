@@ -9,7 +9,6 @@ module.exports = {
   www: function (req, res) {
     return res.view('www/index', {
       title: 'Sinead',
-      isAuthenticated: req.isAuthenticated(),
       ngApp: 'sineadWWW',
       ngController: 'WWWCtrl'
     });

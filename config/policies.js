@@ -28,15 +28,16 @@ module.exports.policies = {
 
   UserController: {
     find:    true,
-    update:  'canModifyUser',
-    destroy: 'canModifyUser'
+    update:  ['isAuthenticated', 'canModifyUser'],
+    destroy: ['isAuthenticated', 'canModifyUser'],
+    identify: true
   },
 
   StoryController: {
     find:    true,
-    create:  'canAuthorStories',
-    update:  'canEditStories',
-    destroy: 'canEditStories'
+    create:  ['isAuthenticated', 'canAuthorStories'],
+    update:  ['isAuthenticated', 'canEditStories'],
+    destroy: ['isAuthenticated', 'canEditStories']
   }
 };
 

@@ -1,0 +1,6 @@
+<article class="story" ng-class="{'story-list': stories}">
+  <h3><a ng-href="/stories/{{story.id}}">{{story.title}}</a></h3>
+  <h6>Written by <a ng-href="/authors/{{story.author.id}}">{{story.author.name}}</a> on {{story.publishAt|date:'medium'}}.</h6>
+  <div ng-bind-html="story.content">
+  </div>
+</article>

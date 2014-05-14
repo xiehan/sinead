@@ -1,0 +1,18 @@
+<div class="row bump">
+  <div class="small-12 columns">
+    <div class="profile-card">
+      <div class="small-12 columns profile-data">
+        <h4><a ng-href="/authors/{{story.author.id}}">{{story.author.name}}</a> <span>Contributor</span></h4>
+        <p><i class="fa fa-envelope"></i> <span>{{story.author.email}}</span></p>
+        <p ng-if="story.author.twitter"><i class="fa fa-twitter"></i> @<a ng-href="http://twitter.com/{{story.author.twitter}}" target="_blank">{{story.author.twitter}}</a></p>
+        <p ng-if="story.author.website"><i class="fa fa-globe"></i> <a ng-href="{{story.author.website}}" target="_blank">{{story.author.website}}</a></p>
+      </div>
+      <div class="row collapse">
+        <ul class="button-group even-2">
+          <li><a href="#" class="button"> Stories <span>2 </span></a></li>
+          <li><a href="#" class="button"> Comments <span>0 </span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

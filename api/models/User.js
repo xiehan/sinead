@@ -49,6 +49,15 @@ module.exports = {
       type: 'boolean',
       defaultsTo: false
     },
+    twitter: {
+      type: 'string',
+      alphanumeric: true,
+      maxLength: 15
+    },
+    website: {
+      type: 'string',
+      url: true
+    },
     // Override toJSON instance method to remove password value
     toJSON: function () {
       var obj = this.toObject();

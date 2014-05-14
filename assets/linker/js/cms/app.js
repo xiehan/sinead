@@ -11,7 +11,8 @@ angular
     'ngSanitize',
     'ui.router',
     'mm.foundation',
-    'cms-templates'
+    'cms-templates',
+    'sineadCMS.models'
   ])
 
   .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function ($locationProvider, $stateProvider, $urlRouterProvider) {

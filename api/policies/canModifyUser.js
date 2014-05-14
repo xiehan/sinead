@@ -1,12 +1,12 @@
 module.exports = function (req, res, next) {
   var targetUserId = req.param('id'),
-    userId = req.session.user.id;
+    userId = req.user.id;
 
   if (userId === targetUserId) {
     return next();
   }
 
-  User.findOne(userId).exec(function (err, user) {
+  User.findOneById(userId).exec(function (err, user) {
     // Unexpected error occurred-- skip to the app's default error (500) handler
     if (err) {
       return next(err);

@@ -1,7 +1,7 @@
 module.exports = function (req, res, next) {
-  var userId = req.session.user.id;
+  var userId = req.user.id;
 
-  User.findOne(userId).exec(function (err, user) {
+  User.findOneById(userId).exec(function (err, user) {
     // Unexpected error occurred-- skip to the app's default error (500) handler
     if (err) {
       return next(err);

@@ -1,8 +1,8 @@
 module.exports = function (req, res, next) {
   var targetStoryId = req.param('id'),
-    userId = req.session.user.id;
+    userId = req.user.id;
 
-  Story.findOne(targetStoryId).exec(function (err, story) {
+  Story.findOneById(targetStoryId).exec(function (err, story) {
     // Unexpected error occurred-- skip to the app's default error (500) handler
     if (err) {
       return next(err);
@@ -17,7 +17,7 @@ module.exports = function (req, res, next) {
     }
 
     // We're not the author, but we can edit the story if we're an admin
-    User.findOne(userId).exec(function (err, user) {
+    User.findOneById(userId).exec(function (err, user) {
       // Unexpected error occurred-- skip to the app's default error (500) handler
       if (err) {
         return next(err);

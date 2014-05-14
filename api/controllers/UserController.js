@@ -21,6 +21,27 @@ module.exports = {
    * Overrides for the settings in `config/controllers.js`
    * (specific to UserController)
    */
-  _config: {}
+  _config: {},
+
+  identify: function (req, res) {
+    var userId;
+    if (!req.isAuthenticated()) {
+      return res.json({}, 200);
+    }
+    userId = req.user.id;
+    User.findOneById(userId).exec(function (err, user) {
+      // Unexpected error occurred-- skip to the app's default error (500) handler
+      if (err) {
+        return res.send(500, err);
+      }
+
+      // This really shouldn't happen, but just in case...
+      if (!user) {
+        return res.send(404, err);
+      }
+
+      return res.json(user, 200);
+    });
+  }
 
 };

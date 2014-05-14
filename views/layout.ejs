@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"<% if (typeof ngController !== 'undefined') { %> ng-app="sinead" ng-controller="<%= ngController %>"<% } %>>
+<html lang="en"<% if (typeof ngApp !== 'undefined' && typeof ngController !== 'undefined') { %> ng-app="<%= ngApp %>" ng-controller="<%= ngController %>"<% } %>>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
@@ -65,13 +65,13 @@
     <!--SCRIPTS-->
     <script src="/linker/js/vendor/jquery.js"></script>
     <script src="/linker/js/vendor/angular.js"></script>
+    <script src="/linker/js/vendor/angular-resource.js"></script>
     <script src="/linker/js/vendor/angular-sanitize.js"></script>
     <script src="/linker/js/vendor/angular-ui-router.js"></script>
     <script src="/linker/js/vendor/angular-foundation.js"></script>
     <script src="/linker/js/vendor/angular-foundation-tpls.js"></script>
-    <script src="/linker/js/app.js"></script>
-    <script src="/linker/js/cms/cms.js"></script>
-    <script src="/linker/js/www/www.js"></script>
+    <script src="/linker/js/cms/app.js"></script>
+    <script src="/linker/js/www/app.js"></script>
     <!--SCRIPTS END-->
 
     <!--TEMPLATES-->

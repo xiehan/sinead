@@ -46,6 +46,7 @@ module.exports = function (grunt) {
   var jsFilesToInject = [
     'linker/js/vendor/jquery.js',
     'linker/js/vendor/angular.js',
+    'linker/js/vendor/angular-resource.js',
     'linker/js/vendor/angular-sanitize.js',
     'linker/js/vendor/angular-ui-router.js',
     'linker/js/vendor/angular-foundation.js',
@@ -164,6 +165,7 @@ module.exports = function (grunt) {
           },
           { '.tmp/public/linker/js/vendor/jquery.js':                  './vendor/jquery/dist/jquery.js' },
           { '.tmp/public/linker/js/vendor/angular.js':                 './vendor/angular/angular.js' },
+          { '.tmp/public/linker/js/vendor/angular-resource.js':        './vendor/angular-resource/angular-resource.js' },
           { '.tmp/public/linker/js/vendor/angular-sanitize.js':        './vendor/angular-sanitize/angular-sanitize.js' },
           { '.tmp/public/linker/js/vendor/angular-ui-router.js':       './vendor/angular-ui-router/release/angular-ui-router.js' },
           { '.tmp/public/linker/js/vendor/angular-foundation.js':      './vendor/angular-foundation/mm-foundation.js' },

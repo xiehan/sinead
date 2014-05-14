@@ -10,6 +10,7 @@ module.exports = {
     return res.view('www/index', {
       title: 'Sinead',
       isAuthenticated: req.isAuthenticated(),
+      ngApp: 'sineadWWW',
       ngController: 'WWWCtrl'
     });
   },
@@ -17,6 +18,7 @@ module.exports = {
   cms: function (req, res) {
     return res.view('cms/index', {
       title: 'Sinead CMS',
+      ngApp: 'sineadCMS',
       ngController: 'CMSCtrl'
     });
   }

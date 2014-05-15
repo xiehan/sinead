@@ -31,5 +31,5 @@
 </article>
 
 <div class="pagination-centered">
-  <pagination total-items="stories.length" page="currentPage" items-per-page="10" max-size="7"></pagination>
+  <pagination total-items="stories.length" page="currentPage" items-per-page="itemsPerPage" max-size="7" boundary-links="true" on-select-page="reloadStories()"></pagination>
 </div>

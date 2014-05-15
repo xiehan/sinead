@@ -55,8 +55,8 @@ module.exports = {
       maxLength: 15
     },
     website: {
-      type: 'string',
-      url: true
+      type: 'string'
+      //url: true
     },
     // Override toJSON instance method to remove password value
     toJSON: function () {
@@ -78,6 +78,12 @@ module.exports = {
     hashPassword(values, next);
   },
   beforeUpdate: function (values, next) {
+    if (values.createdAt) {
+      values.createdAt = values.createdAt.slice(0, 19).replace('T', ' ');
+    }
+    if (values.updatedAt) {
+      values.updatedAt = values.updatedAt.slice(0, 19).replace('T', ' ');
+    }
     if (values.password) {
       hashPassword(values, next);
     } else {

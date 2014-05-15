@@ -56,8 +56,6 @@ angular
       } else {
         story.author = authorId;
       }
-      story.createdAt = undefined;
-      story.updatedAt = undefined;
       story.$update().then(function () {
         $scope.isSaving = false;
         $scope.isSaved = true;

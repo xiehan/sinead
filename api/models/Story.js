@@ -30,6 +30,12 @@ module.exports = {
     if (values.publishAt) {
       values.publishAt = values.publishAt.slice(0, 19).replace('T', ' ');
     }
+    if (values.createdAt) {
+      values.createdAt = values.createdAt.slice(0, 19).replace('T', ' ');
+    }
+    if (values.updatedAt) {
+      values.updatedAt = values.updatedAt.slice(0, 19).replace('T', ' ');
+    }
     next();
   }
 

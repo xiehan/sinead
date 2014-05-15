@@ -13,10 +13,13 @@ angular
     'mm.foundation',
     'cms-templates',
     'sineadCMS.models',
-    'sineadCMS.modal.storyEditor'
+    'sineadCMS.modal.storyEditor',
+    'sineadCMS.modal.profileEditor'
   ])
 
-  .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function ($locationProvider, $stateProvider, $urlRouterProvider) {
+  .constant('ITEMS_PER_PAGE', 10)
+
+  .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', 'ITEMS_PER_PAGE', function ($locationProvider, $stateProvider, $urlRouterProvider, ITEMS_PER_PAGE) {
     // enable html5Mode for pushstate ('#'-less URLs)
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
@@ -40,7 +43,7 @@ angular
           url: '',
           resolve: {
             stories: ['Story', function (Story) {
-              return Story.query();
+              return Story.query({ limit: ITEMS_PER_PAGE });
             }]
           },
           views: {
@@ -72,6 +75,50 @@ angular
             onExit: ['StoryEditor', function (StoryEditor) {
               StoryEditor.onExit();
             }]
+          })
+        .state('cms.user', {
+          abstract: true,
+          url: '^/cms/users',
+          resolve: {
+            loggedinUser: ['user', function (user) {
+              return user;
+            }]
+          },
+          views: {
+            'sidebarContent': {
+              templateUrl: 'cms/sidebar.tpl.html'
+            }
+          }
+        })
+          .state('cms.user.profile', {
+            url: '/profile/edit',
+            resolve: {
+              user: ['User', 'loggedinUser', function (User, loggedinUser) {
+                return User.get({ id: loggedinUser.id }).$promise;
+              }]
+            },
+            onEnter: ['$state', 'ProfileEditor', 'user', function ($state, ProfileEditor, user) {
+              return ProfileEditor.onEnter(user, function onClose(_newState) {
+                $state.go('cms.home');
+              });
+            }],
+            onExit: ['ProfileEditor', function (ProfileEditor) {
+              ProfileEditor.onExit();
+            }]
+          })
+          .state('cms.user.manage', {
+            url: '/manage',
+            resolve: {
+              users: ['User', function (User) {
+                return User.query().$promise;
+              }]
+            },
+            views: {
+              'mainContent@cms': {
+                templateUrl: 'cms/user/user_list.tpl.html',
+                controller: 'UserManageCtrl'
+              }
+            }
           })
     ;
     $urlRouterProvider.otherwise('/cms');
@@ -106,8 +153,21 @@ angular
     $scope.canAuthor = user.canAuthor === true;
   }])
 
-  .controller('StoriesCtrl', ['$scope', 'stories', function ($scope, stories) {
+  .controller('StoriesCtrl', ['$scope', 'ITEMS_PER_PAGE', 'Story', 'stories', function ($scope, ITEMS_PER_PAGE, Story, stories) {
     $scope.stories = stories;
+    $scope.currentPage = 1;
+    $scope.itemsPerPage = ITEMS_PER_PAGE;
+
+    $scope.reloadStories = function () {
+      var skip = ($scope.currentPage - 1) * ITEMS_PER_PAGE;
+      Story.query({ skip: skip, limit: ITEMS_PER_PAGE }).then(function (_stories) {
+        $scope.stories = _stories;
+      });
+    };
+  }])
+
+  .controller('UserManageCtrl', ['$scope', 'User', 'users', function ($scope, User, users) {
+    $scope.users = users;
   }])
 
   .filter('default', function () {

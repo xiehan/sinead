@@ -60,9 +60,5 @@ angular
     return GenericModal;
   }])
 
-  .config(['$stateProvider', function ($stateProvider) {
-    console.debug('instantiating modal');
-  }])
-
 ;
 })();

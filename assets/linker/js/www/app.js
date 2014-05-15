@@ -14,7 +14,9 @@ angular
     'www-templates'
   ])
 
-  .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function ($locationProvider, $stateProvider, $urlRouterProvider) {
+  .constant('ITEMS_PER_PAGE', 3)
+
+  .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', 'ITEMS_PER_PAGE', function ($locationProvider, $stateProvider, $urlRouterProvider, ITEMS_PER_PAGE) {
     // enable html5Mode for pushstate ('#'-less URLs)
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
@@ -45,7 +47,7 @@ angular
           url: '',
           resolve: {
             stories: ['$http', function ($http) {
-              return $http.get('/api/story').then(function (response) {
+              return $http.get('/api/story', { limit: ITEMS_PER_PAGE }).then(function (response) {
                 return response.data;
               });
             }]
@@ -115,8 +117,17 @@ angular
     }
   }])
 
-  .controller('StoriesCtrl', ['$scope', 'stories', function ($scope, stories) {
+  .controller('StoriesCtrl', ['$scope', '$http', 'ITEMS_PER_PAGE', 'stories', function ($scope, $http, ITEMS_PER_PAGE, stories) {
     $scope.stories = stories;
+    $scope.currentPage = 1;
+    $scope.itemsPerPage = ITEMS_PER_PAGE;
+
+    $scope.reloadStories = function () {
+      var skip = ($scope.currentPage - 1) * ITEMS_PER_PAGE;
+      $http.get('/api/story', { skip: skip, limit: ITEMS_PER_PAGE }).then(function (response) {
+        $scope.stories = response.data;
+      });
+    };
   }])
 
   .controller('SingleStoryCtrl', ['$scope', 'story', function ($scope, story) {

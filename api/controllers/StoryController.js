@@ -24,7 +24,9 @@ module.exports = {
   _config: {},
 
   find: function (req, res) {
-    var targetStoryId = req.param('id');
+    var targetStoryId = req.param('id'),
+      skip = req.param('skip') || 0,
+      limit = req.param('limit') || 5;
     if (typeof targetStoryId !== 'undefined' && targetStoryId !== null) {
       Story.findOneById(targetStoryId).then(function (story) {
         if (!story) { // not sure if this can happen in the promise-based model?
@@ -51,7 +53,7 @@ module.exports = {
       if (req.get('Referer').indexOf('/cms') < 0) { // @TODO find a better way to do this
         filter.publishAt = { '<=': (new Date()) };
       }
-      Story.find().where(filter).sort('id DESC').then(function (stories) {
+      Story.find().where(filter).sort('id DESC').skip(skip).limit(limit).then(function (stories) {
         var promises = [],
           toFindAuthorHash = {};
         // TODO integrate underscore or something to make looping easier

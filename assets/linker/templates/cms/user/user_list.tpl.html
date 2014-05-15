@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>E-mail address</th>
+      <th>Can Author</th>
+      <th>Is Admin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users">
+      <td>{{user.id}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+    </tr>
+  </tbody>
+</table>

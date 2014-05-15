@@ -28,6 +28,7 @@ module.exports.policies = {
 
   UserController: {
     find:    true,
+    findAll:  ['isAuthenticated', 'canModifyUser'],
     update:  ['isAuthenticated', 'canModifyUser'],
     destroy: ['isAuthenticated', 'canModifyUser'],
     identify: true

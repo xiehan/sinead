@@ -1,0 +1,52 @@
+<form id="profileEditor" name="profileForm" role="form">
+  <div class="row">
+    <div class="small-12 large-8 columns">
+      <div class="row">
+        <div class="small-12 columns">
+          <label>
+            Name or alias
+            <input type="text" ng-model="user.name" required />
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 columns">
+          <label>
+            E-mail address (used as your username)
+            <input type="email" ng-model="user.email" required />
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 columns">
+          <label>Twitter username</label>
+          <div class="row collapse">
+            <div class="small-1 columns">
+              <span class="prefix">@</span>
+            </div>
+            <div class="small-11 columns">
+              <input type="text" ng-model="user.twitter" maxlength="15" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 columns">
+          <label>
+            Personal website
+            <input type="url" ng-model="user.website" />
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row control-row">
+    <div class="small-12 columns">
+      <ul class="button-group">
+        <li><button class="button success" ng-disabled="!profileForm.$valid" ng-click="close()">Save</button></li>
+        <li><button class="button secondary" ng-click="cancel()">Cancel</button></li>
+      </ul>
+    </div>
+  </div>
+</form>
+<a class="close-reveal-modal" ng-click="cancel()"><i class="fa fa-times"></i></a>

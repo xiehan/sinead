@@ -1,0 +1,43 @@
+<form id="storyEditor" role="form">
+  <div class="row">
+    <div class="small-12 large-8 columns">
+      <div class="row">
+        <div class="small-12 columns">
+          <label>
+            Story title
+            <input type="text" ng-model="story.title" placeholder="Untitled story" ng-blur="save()" />
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 columns">
+          <label>
+            Story contents
+            <textarea ui-tinymce="tinymceOptions" ng-model="story.content"></textarea>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="small-12 large-4 columns">
+      <div class="row datepicker-row">
+        <div class="small-12 columns">
+          <p>Please choose a time to publish your story. Once you click save, your story will be scheduled to be published at this time.</p>
+          <quick-datepicker date-filter="nowOrLater" ng-model="story.publishAt" class="button secondary"></quick-datepicker>
+        </div>
+      </div>
+      <div class="row control-row">
+        <div class="small-12 columns">
+          <ul class="button-group">
+            <li>
+              <button class="button success" disabled="disabled" ng-if="isSaving">Saving...</button>
+              <button class="button success" ng-click="close()" ng-if="!isSaving && isSaved">Saved!</button>
+              <button class="button" ng-click="close()" ng-if="!isSaving && !isSaved">Close</button>
+            </li>
+            <li><button class="button alert" ng-click="deleteStory(story)">Delete</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<a class="close-reveal-modal" ng-click="cancel()"><i class="fa fa-times"></i></a>

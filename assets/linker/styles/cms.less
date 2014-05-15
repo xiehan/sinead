@@ -1,0 +1,55 @@
+#cms {
+    .button {
+        &.expand {
+            text-align: left;
+            padding-left: 0.75rem;
+
+            i {
+                color: #d8d8d8;
+                text-align: center;
+                width: 2rem;
+            }
+
+            &.secondary {
+                i {
+                    color: #6f6f6f;
+                }
+            }
+        }
+    }
+
+    #storyEditor {
+        label {
+            color: #777;
+        }
+    }
+
+    [modal-window] {
+        position: absolute !important;
+        margin-bottom: 3rem !important;
+
+        iframe {
+            width: 99% !important;
+        }
+
+        .datepicker-row {
+            margin-top: 5rem;
+        }
+
+        .control-row {
+            margin-top: 3rem;
+        }
+
+        .quickdate-button {
+            i {
+                margin-right: 1rem;
+            }
+        }
+
+        .quickdate-popup {
+            border-color: #bbb;
+            width: 100%;
+            padding: 1rem;
+        }
+    }
+}

@@ -47,7 +47,11 @@ module.exports = {
       });
     } else {
       var foundAuthorsHash = {};
-      Story.find().where({ publishAt: { '<=': (new Date()) }}).sort('publishAt DESC').then(function (stories) {
+      var filter = {};
+      if (req.get('Referer').indexOf('/cms') < 0) { // @TODO find a better way to do this
+        filter.publishAt = { '<=': (new Date()) };
+      }
+      Story.find().where(filter).sort('id DESC').then(function (stories) {
         var promises = [],
           toFindAuthorHash = {};
         // TODO integrate underscore or something to make looping easier
@@ -75,6 +79,16 @@ module.exports = {
         return res.send(500, err);
       });
     }
+  },
+
+  create: function (req, res) {
+    // @TODO parse relevant params and pass them to create
+    Story.create({ author: req.user.id }).done(function (err, story) {
+      if (err) {
+        return res.send(500, err);
+      }
+      return res.json(story, 201);
+    });
   }
 
 };

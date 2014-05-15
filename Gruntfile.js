@@ -30,6 +30,7 @@ module.exports = function (grunt) {
 
   var cssFilesToInject = [
     'linker/styles/font-awesome.css',
+    'linker/styles/vendor/**/*.css',
     'linker/styles/main.css',
     'linker/**/*.css'
   ];
@@ -52,6 +53,7 @@ module.exports = function (grunt) {
     'linker/js/vendor/angular-ui-router.js',
     'linker/js/vendor/angular-foundation.js',
     'linker/js/vendor/angular-foundation-tpls.js',
+    'linker/js/vendor/angular-ui-tinymce.js',
 
     // *->    put other dependencies here   <-*
     'linker/js/cms/models/models.js',
@@ -158,7 +160,16 @@ module.exports = function (grunt) {
           { '.tmp/public/linker/js/vendor/angular-sanitize.js':        './vendor/angular-sanitize/angular-sanitize.js' },
           { '.tmp/public/linker/js/vendor/angular-ui-router.js':       './vendor/angular-ui-router/release/angular-ui-router.js' },
           { '.tmp/public/linker/js/vendor/angular-foundation.js':      './vendor/angular-foundation/mm-foundation.js' },
-          { '.tmp/public/linker/js/vendor/angular-foundation-tpls.js': './vendor/angular-foundation/mm-foundation-tpls.js' }
+          { '.tmp/public/linker/js/vendor/angular-foundation-tpls.js': './vendor/angular-foundation/mm-foundation-tpls.js' },
+          { '.tmp/public/linker/js/vendor/angular-ui-tinymce.js':      './vendor/angular-ui-tinymce/src/tinymce.js' },
+          {
+            expand: true,
+            cwd: './vendor/tinymce',
+            src: ['**/*'],
+            dest: '.tmp/public/js/vendor/tinymce'
+          },
+          { '.tmp/public/linker/js/vendor/angular-quick-date.js': './vendor/ngQuickDate/dist/ng-quick-date.js' },
+          { '.tmp/public/linker/styles/vendor/angular-quick-date.css': './vendor/ngQuickDate/dist/ng-quick-date.css' }
         ]
       },
       prod: {

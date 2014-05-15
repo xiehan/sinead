@@ -23,8 +23,10 @@
 
     <!--STYLES-->
     <link rel="stylesheet" href="/linker/styles/font-awesome.css">
+    <link rel="stylesheet" href="/linker/styles/vendor/angular-quick-date.css">
     <link rel="stylesheet" href="/linker/styles/main.css">
     <link rel="stylesheet" href="/linker/styles/auth.css">
+    <link rel="stylesheet" href="/linker/styles/cms.css">
     <link rel="stylesheet" href="/linker/styles/profile-card.css">
     <!--STYLES END-->
 
@@ -39,7 +41,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body<% if (typeof bodyId !== 'undefined') { %> id="<%= bodyId %>"<% } %>>
 
     <!-- Include the view file for the current controller/route -->
     <%- body %>
@@ -62,6 +64,9 @@
     <!-- listen on socket.io for incoming messages -->
     <script type="text/javascript" src="/js/app.js"></script>
 
+    <!-- manually add tinymce -->
+    <script type="text/javascript" src="/js/vendor/tinymce/tinymce.min.js"></script>
+
     <!--SCRIPTS-->
     <script src="/linker/js/vendor/jquery.js"></script>
     <script src="/linker/js/vendor/angular.js"></script>
@@ -70,8 +75,12 @@
     <script src="/linker/js/vendor/angular-ui-router.js"></script>
     <script src="/linker/js/vendor/angular-foundation.js"></script>
     <script src="/linker/js/vendor/angular-foundation-tpls.js"></script>
+    <script src="/linker/js/vendor/angular-ui-tinymce.js"></script>
     <script src="/linker/js/cms/models/models.js"></script>
     <script src="/linker/js/cms/app.js"></script>
+    <script src="/linker/js/cms/modal/modal.js"></script>
+    <script src="/linker/js/cms/modal/story_editor/story_editor.js"></script>
+    <script src="/linker/js/vendor/angular-quick-date.js"></script>
     <script src="/linker/js/www/app.js"></script>
     <!--SCRIPTS END-->
 

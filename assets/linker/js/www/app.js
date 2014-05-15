@@ -105,6 +105,7 @@ angular
 
   .controller('WWWCtrl', ['$scope', function ($scope) {
     $scope.loggedIn = false;
+    $scope.user = null;
   }])
 
   .controller('UserCtrl', ['$scope', 'user', function ($scope, user) {
@@ -125,6 +126,15 @@ angular
   .controller('UserProfileCtrl', ['$scope', 'author', function ($scope, author) {
     $scope.author = author;
   }])
+
+  .directive('story', function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'www/story/story.tpl.html',
+      replace: true,
+      link: function postLink($scope, $element, $attrs) {}
+    };
+  })
 
 ;
 })();

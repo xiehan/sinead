@@ -6,8 +6,27 @@ html, body, p, h1, h2, h3, h4, h5, h6 {
 
 .story{
     &.story-list {
-        border-bottom: 1px solid #ddd;
-        margin-bottom: 1.1875rem;
-        padding-bottom: 1.25rem;
+        &:not(.story-feed) {
+            &:not(:last-of-type) {
+                border-bottom: 1px solid #ddd;
+                margin-bottom: 1.1875rem;
+                padding-bottom: 1.25rem;
+            }
+        }
+
+        &:last-of-type {
+            margin-bottom: 4rem;
+        }
+
+        &.story-feed {
+            p, li {
+                font-size: 0.875rem;
+            }
+        }
     }
+}
+
+ul.unstyled-list {
+    list-style-type: none;
+    margin-left: 0;
 }

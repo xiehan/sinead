@@ -10,7 +10,8 @@ module.exports = {
     return res.view('www/index', {
       title: 'Sinead',
       ngApp: 'sineadWWW',
-      ngController: 'WWWCtrl'
+      ngController: 'WWWCtrl',
+      bodyId: 'www'
     });
   },
 
@@ -18,7 +19,8 @@ module.exports = {
     return res.view('cms/index', {
       title: 'Sinead CMS',
       ngApp: 'sineadCMS',
-      ngController: 'CMSCtrl'
+      ngController: 'CMSCtrl',
+      bodyId: 'cms'
     });
   }
 };

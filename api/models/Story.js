@@ -11,7 +11,8 @@ module.exports = {
   attributes: {
     author: {
       type: 'integer',
-      index: true
+      index: true,
+      notEmpty: true
     },
     title: {
       type: 'string'
@@ -24,10 +25,12 @@ module.exports = {
     }
   },
 
-  // Lifecycle Callbacks
-  beforeCreate: function (values, next) {
-    values.uuid = uuid.v4();
-    values.author = values.author.id;
+  beforeUpdate: function (values, next) {
+    //values.author = values.author.id;
+    if (values.publishAt) {
+      values.publishAt = values.publishAt.slice(0, 19).replace('T', ' ');
+    }
+    next();
   }
 
 };

@@ -20,8 +20,7 @@
     "passport": "0.1.18",
     "passport-local": "0.1.6",
     "bcrypt": "0.7.7",
-    "async": "0.2.9",
-    "swagger-node-express": "~2.0"
+    "async": "0.2.9"
   },
   "scripts": {
     "start": "node app.js",

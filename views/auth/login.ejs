@@ -9,6 +9,7 @@
     <div class="login-panel">
       <p class="welcome"><%= __('Please log in') %></p>
       <form role="form" action="/login" method="post">
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
         <div class="row collapse">
           <div class="small-2 columns">
             <span class="prefix"><i class="fa fa-envelope"></i></span>

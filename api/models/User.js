@@ -75,7 +75,22 @@ module.exports = {
   
   // Lifecycle Callbacks
   beforeCreate: function (values, next) {
-    hashPassword(values, next);
+    User.count().done(function (err, count) {
+      if (err) {
+        return next(err);
+      }
+      if (!count) { // if we're the first user in the database, give us all privileges
+        values.isAdmin = true;
+        values.isVerified = true;
+        values.canAuthor = true;
+      } else { // otherwise, don't give them any privileges... just to be safe
+        // for now, while there's no other way to create users than by going through the signup anyway...
+        values.isAdmin = false;
+        values.isVerified = false;
+        values.canAuthor = false;
+      }
+      hashPassword(values, next);
+    });
   },
   beforeUpdate: function (values, next) {
     if (values.createdAt) {

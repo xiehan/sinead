@@ -3,9 +3,9 @@ var swagger = require('swagger-node-express'),
 
 module.exports.express = {
   customMiddleware: function (app) {
-  	// Swagger integration
-  	swagger.setAppHandler(app);
-  	swagger.configureSwaggerPaths('', '/api-docs', '');
+    // Swagger integration
+    // swagger.setAppHandler(app);
+    // swagger.configureSwaggerPaths('', '/api-docs', '');
 
     // Passport Auth Middleware
     // Credit:

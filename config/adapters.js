@@ -31,8 +31,6 @@ module.exports.adapters = {
     host: process.env.MYSQL_SERVER || 'localhost',
     port: process.env.MYSQL_PORT || 3306,
     user: process.env.MYSQL_USER || 'sailsuser',
-    // Psst.. You can put your password in config/local.js instead
-    // so you don't inadvertently push it up if you're using version control
     password: process.env.MYSQL_PASSWORD || 'testTEST123', 
     database: process.env.MYSQL_DB || 'sinead_test'
   },

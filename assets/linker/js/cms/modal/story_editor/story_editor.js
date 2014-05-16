@@ -88,6 +88,12 @@ angular
       $scope.story.publishAt = new Date();
     };
 
+    $scope.delete = function () {
+      story.$delete().then(function (_story) {
+        $scope.cancel();
+      });
+    };
+
     $scope.close = function () {
       $modalInstance.close();
       $scope.$destroy();

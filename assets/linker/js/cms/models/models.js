@@ -34,5 +34,38 @@ angular
     });
   }])
 
+  .factory('CsrfToken', ['$resource', function ($resource) {
+    return $resource('/csrfToken');
+  }])
+
+  .service('TokenService', function () {
+    var token = null;
+
+    return {
+      get: function () {
+        return token;
+      },
+      set: function (_token) {
+        token = _token;
+      }
+    };
+  })
+
+  .config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push(function ($q, TokenService) {
+      return {
+       'request': function (config) {
+          if (config.method !== 'GET') {
+            if (!config.data) {
+              config.data = {};
+            }
+            config.data['_csrf'] = TokenService.get();
+          }
+          return config || $q.when(config);
+        }
+      };
+    });
+  }])
+
 ;
 })();

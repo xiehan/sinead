@@ -16,6 +16,9 @@ module.exports[404] = function pageNotFound(req, res) {
 
   if (!req.headers['x-requested-with']) {
     if (req.url.match(/\/cms\/?.*$/)) {
+      if (!req.isAuthenticated()) { // @TODO Figure out how to apply our Sails policy here rather than doing this manually
+        return res.forbidden('You cannot access this page if you are not logged in!');
+      }
       return sails.controllers.main.cms(req, res);
     } else if (!req.url.match(/\/api\/?.*$/) &&
                !req.url.match(/\/signup\/?.*$/) &&

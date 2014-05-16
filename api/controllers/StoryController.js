@@ -61,9 +61,11 @@ module.exports = {
         return res.send(500, err);
       });
     } else {
-      var filter = {};
+      var filter = {},
+        sort = 'createdAt DESC';
       if (req.get('Referer').indexOf('/cms') < 0) { // @TODO find a better way to do this
         filter.publishAt = { '<=': (new Date()) };
+        sort = 'publishAt DESC';
       }
       Story.find().where(filter).sort('publishAt DESC').skip(skip).limit(limit).then(function (stories) {
         var toFindAuthorHash = {},

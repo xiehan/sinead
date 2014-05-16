@@ -39,15 +39,15 @@ module.exports = {
     },
     isAdmin: {
       type: 'boolean',
-      defaultsTo: true
+      defaultsTo: false
     },
     isVerified: {
       type: 'boolean',
-      defaultsTo: true
+      defaultsTo: false
     },
     canAuthor: {
       type: 'boolean',
-      defaultsTo: true
+      defaultsTo: false
     },
     twitter: {
       type: 'string',

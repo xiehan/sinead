@@ -8,12 +8,22 @@
  */
 
 module.exports[404] = function pageNotFound(req, res) {
-
   /*
    * NOTE: This function is Sails middleware-- that means that not only do `req` and `res`
    * work just like their Express equivalents to handle HTTP requests, they also simulate
    * the same interface for receiving socket messages.
    */
+
+  if (!req.headers['x-requested-with']) {
+    if (req.url.match(/\/cms\/?.*$/)) {
+      return sails.controllers.main.cms(req, res);
+    } else if (!req.url.match(/\/api\/?.*$/) &&
+               !req.url.match(/\/signup\/?.*$/) &&
+               !req.url.match(/\/login\/?.*/) &&
+               !req.url.match(/\/logout\/?.*/)) {
+      return sails.controllers.main.www(req, res);
+    }
+  }
 
   var viewFilePath = '404';
   var statusCode = 404;

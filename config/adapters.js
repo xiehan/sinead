@@ -28,13 +28,13 @@ module.exports.adapters = {
   // Learn more: http://en.wikipedia.org/wiki/MySQL
   mysql: {
     module: 'sails-mysql',
-    host: 'localhost',
-    port: 3306,
-    user: 'sailsuser',
+    host: process.env.MYSQL_SERVER || 'localhost',
+    port: process.env.MYSQL_PORT || 3306,
+    user: process.env.MYSQL_USER || 'sailsuser',
     // Psst.. You can put your password in config/local.js instead
     // so you don't inadvertently push it up if you're using version control
-    password: 'testTEST123', 
-    database: 'sinead_test'
+    password: process.env.MYSQL_PASSWORD || 'testTEST123', 
+    database: process.env.MYSQL_DB || 'sinead_test'
   },
 
   mongo: {

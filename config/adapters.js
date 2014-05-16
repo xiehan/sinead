@@ -35,5 +35,10 @@ module.exports.adapters = {
     // so you don't inadvertently push it up if you're using version control
     password: 'testTEST123', 
     database: 'sinead_test'
+  },
+
+  mongo: {
+    module: 'sails-mongo',
+    url: process.env.MONGOLAB_URI || 'mongodb://localhost:27017/sails'
   }
 };

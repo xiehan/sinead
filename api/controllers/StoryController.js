@@ -67,7 +67,7 @@ module.exports = {
         filter.publishAt = { '<=': (new Date()) };
         sort = 'publishAt DESC';
       }
-      Story.find().where(filter).sort('publishAt DESC').skip(skip).limit(limit).then(function (stories) {
+      Story.find().where(filter).sort(sort).skip(skip).limit(limit).then(function (stories) {
         var toFindAuthorHash = {},
           where = { or: [] };
         // TODO integrate underscore or something to make looping easier

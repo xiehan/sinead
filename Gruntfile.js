@@ -529,6 +529,9 @@ module.exports = function (grunt) {
     'sails-linker:devTplJADE'
   ]);
 
+  grunt.registerTask('heroku:development', 'build');
+  grunt.registerTask('heroku:production', 'prod');
+
   // When API files are changed:
   // grunt.event.on('watch', function(action, filepath) {
   //   grunt.log.writeln(filepath + ' has ' + action);

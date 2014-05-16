@@ -1,5 +1,5 @@
 <article class="row story story-list story-feed" ng-repeat="story in stories">
-  <div class="columns" ng-class="{ 'large-9': canAuthor || isAdmin, 'large-12': !canAuthor && !isAdmin }">
+  <div class="columns" ng-class="{ 'large-9': ((canAuthor && story.author.id == user.id) || isAdmin), 'large-12': !((canAuthor && story.author.id == user.id) || isAdmin) }">
     <h5>
       <a ng-href="/stories/{{story.id}}" target="_blank">{{story.title|default:'Untitled story'}}</a>
     </h5>
@@ -31,5 +31,5 @@
 </article>
 
 <div class="pagination-centered">
-  <pagination total-items="stories.length" page="currentPage" items-per-page="itemsPerPage" max-size="7" boundary-links="true" on-select-page="reloadStories()"></pagination>
+  <pagination total-items="totalStories" page="currentPage" items-per-page="itemsPerPage" max-size="7" boundary-links="true" on-select-page="reloadStories()"></pagination>
 </div>

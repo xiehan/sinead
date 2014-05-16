@@ -23,6 +23,19 @@ module.exports = {
    */
   _config: {},
 
+  count: function (req, res) {
+    var filter = {};
+    if (req.get('Referer').indexOf('/cms') < 0) { // @TODO find a better way to do this
+      filter.publishAt = { '<=': (new Date()) };
+    }
+    Story.count().where(filter).exec(function (err, num) {
+      if (err) {
+        return res.send(500, err);
+      }
+      return res.json(num);
+    });
+  },
+
   find: function (req, res) {
     var targetStoryId = req.param('id'),
       skip = req.param('skip') || 0,
@@ -48,32 +61,41 @@ module.exports = {
         return res.send(500, err);
       });
     } else {
-      var foundAuthorsHash = {};
       var filter = {};
       if (req.get('Referer').indexOf('/cms') < 0) { // @TODO find a better way to do this
         filter.publishAt = { '<=': (new Date()) };
       }
-      Story.find().where(filter).sort('id DESC').skip(skip).limit(limit).then(function (stories) {
-        var promises = [],
-          toFindAuthorHash = {};
+      Story.find().where(filter).sort('publishAt DESC').skip(skip).limit(limit).then(function (stories) {
+        var toFindAuthorHash = {},
+          where = { or: [] };
         // TODO integrate underscore or something to make looping easier
         for (var i = 0; i < stories.length; i++) {
           var userId = stories[i].author;
           if (typeof toFindAuthorHash[userId] === 'undefined') {
             toFindAuthorHash[userId] = userId;
-            promises.push(User.findOneById(userId).then(function (user) {
-              foundAuthorsHash[userId] = user;
-            }).fail(function (err) {
-              // Unexpected error occurred-- for now, just return the story as-is
-              return null;
-            }));
+            where.or.push({ id: userId });
           }
         }
-        return [stories].concat(promises);
-      }).spread(function (stories) {
+        if (where.or.length === 1) {
+          where = where.or[0];
+        } else if (where.or.length === 0) {
+          where = {};
+        }
+        var users = User.find().where(where).then(function (users) {
+          return users;
+        }).fail(function (err) {
+          // Unexpected error occurred-- for now, just return the story as-is
+          return null;
+        });
+        return [stories, users];
+      }).spread(function (stories, users) {
+        var foundAuthorsHash = {};
         // THIS IS REALLY DUMB. There has to be a better way to do this.
-        for (var j = 0; j < stories.length; j++) {
-          stories[j].author = foundAuthorsHash[stories[j].author];
+        for (var j = 0; j < users.length; j++) {
+          foundAuthorsHash[users[j].id] = users[j];
+        }
+        for (var k = 0; k < stories.length; k++) {
+          stories[k].author = foundAuthorsHash[stories[k].author];
         }
         return res.json(stories, 200);
       }).fail(function (err) {

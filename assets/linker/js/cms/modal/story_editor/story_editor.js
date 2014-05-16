@@ -84,6 +84,9 @@ angular
     $scope.nowOrLater = function (_date) {
       return _date >= (new Date());
     };
+    $scope.now = function () {
+      $scope.story.publishAt = new Date();
+    };
 
     $scope.close = function () {
       $modalInstance.close();

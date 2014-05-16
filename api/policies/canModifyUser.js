@@ -2,7 +2,7 @@ module.exports = function (req, res, next) {
   var targetUserId = req.param('id'),
     userId = req.user.id;
 
-  if (userId === targetUserId) {
+  if (userId == targetUserId) {
     return next();
   }
 

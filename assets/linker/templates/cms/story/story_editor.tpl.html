@@ -21,8 +21,11 @@
     <div class="small-12 large-4 columns">
       <div class="row datepicker-row">
         <div class="small-12 columns">
-          <p>Please choose a time to publish your story. Once you click save, your story will be scheduled to be published at this time.</p>
-          <quick-datepicker date-filter="nowOrLater" ng-model="story.publishAt" class="button secondary"></quick-datepicker>
+          <p>Please choose a time to publish your story. As soon as you set a date, your story will be scheduled to be published at this time.</p>
+          <ul class="button-group">
+            <li><quick-datepicker date-filter="nowOrLater" ng-model="story.publishAt" class="button secondary small"></quick-datepicker></li>
+            <li><button ng-click="now()" class="button secondary small">Now</button></li>
+          </ul>
         </div>
       </div>
       <div class="row control-row">

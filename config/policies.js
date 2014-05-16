@@ -38,7 +38,8 @@ module.exports.policies = {
     find:    true,
     create:  ['isAuthenticated', 'canAuthorStories'],
     update:  ['isAuthenticated', 'canEditStories'],
-    destroy: ['isAuthenticated', 'canEditStories']
+    destroy: ['isAuthenticated', 'canEditStories'],
+    count:   true
   }
 };
 

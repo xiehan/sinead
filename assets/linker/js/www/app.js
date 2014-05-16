@@ -44,10 +44,22 @@ angular
         }
       })
         .state('www.home', {
-          url: '',
+          url: '?page',
           resolve: {
-            stories: ['$http', function ($http) {
-              return $http.get('/api/story', { limit: ITEMS_PER_PAGE }).then(function (response) {
+            stories: ['$http', '$stateParams', '$rootScope', function ($http, $stateParams, $rootScope) {
+              var config = { params: { limit: ITEMS_PER_PAGE }};
+              if ($stateParams.page) {
+                angular.extend(config.params, { skip: ($stateParams.page - 1) * ITEMS_PER_PAGE });
+              }
+              return $http.get('/api/story', config).then(function (response) {
+                if ($stateParams.page) {
+                  $rootScope.newStoriesLoaded = true;
+                }
+                return response.data;
+              });
+            }],
+            storyCount: ['$http', function ($http) {
+              return $http.get('/api/story/count').then(function (response) {
                 return response.data;
               });
             }]
@@ -105,6 +117,10 @@ angular
     $urlRouterProvider.otherwise('/');
   }])
 
+  .run(['$rootScope', function ($rootScope) {
+    $rootScope.newStoriesLoaded = false;
+  }])
+
   .controller('WWWCtrl', ['$scope', function ($scope) {
     $scope.loggedIn = false;
     $scope.user = null;
@@ -117,16 +133,19 @@ angular
     }
   }])
 
-  .controller('StoriesCtrl', ['$scope', '$http', 'ITEMS_PER_PAGE', 'stories', function ($scope, $http, ITEMS_PER_PAGE, stories) {
+  .controller('StoriesCtrl', ['$scope', '$timeout', '$state', '$stateParams', 'ITEMS_PER_PAGE', 'stories', 'storyCount', function ($scope, $timeout, $state, $stateParams, ITEMS_PER_PAGE, stories, storyCount) {
     $scope.stories = stories;
-    $scope.currentPage = 1;
+    $scope.totalStories = storyCount;
+    $scope.currentPage = $stateParams.page || 1;
     $scope.itemsPerPage = ITEMS_PER_PAGE;
+    $timeout(function () {
+      $scope.newStoriesLoaded = false;
+    }, 100);
 
     $scope.reloadStories = function () {
-      var skip = ($scope.currentPage - 1) * ITEMS_PER_PAGE;
-      $http.get('/api/story', { skip: skip, limit: ITEMS_PER_PAGE }).then(function (response) {
-        $scope.stories = response.data;
-      });
+      $timeout(function () {
+        $state.go('www.home', { page: $scope.currentPage });
+      }, 1);
     };
   }])
 

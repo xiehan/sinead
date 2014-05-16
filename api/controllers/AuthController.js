@@ -15,7 +15,7 @@ var AuthController = {
     }
     var msg = req.flash('error') || req.flash('message');
     if (msg && msg.length > 0) {
-      data.message = req.flash('error') || req.flash('message');
+      data.message = msg;
     }
     res.view(data);
   },

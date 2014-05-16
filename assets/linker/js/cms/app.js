@@ -40,10 +40,24 @@ angular
         }
       })
         .state('cms.home', {
-          url: '',
+          url: '?page',
           resolve: {
-            stories: ['Story', function (Story) {
-              return Story.query({ limit: ITEMS_PER_PAGE });
+            stories: ['Story', '$stateParams', '$rootScope', function (Story, $stateParams, $rootScope) {
+              var params = { limit: ITEMS_PER_PAGE };
+              if ($stateParams.page) {
+                angular.extend(params, { skip: ($stateParams.page - 1) * ITEMS_PER_PAGE });
+              }
+              return Story.query(params).$promise.then(function (stories) {
+                if ($stateParams.page) {
+                  $rootScope.newStoriesLoaded = true;
+                }
+                return stories;
+              });
+            }],
+            storyCount: ['Story', function (Story) {
+              return Story.count().$promise.then(function (count) {
+                return count[0]; // wtf why is this an array
+              });
             }]
           },
           views: {
@@ -147,27 +161,45 @@ angular
     };
   }])
 
+  .run(['$rootScope', function ($rootScope) {
+    $rootScope.newStoriesLoaded = false;
+  }])
+
   .controller('UserCtrl', ['$scope', 'user', function ($scope, user) {
     $scope.user = user;
     $scope.isAdmin = user.isAdmin === true;
     $scope.canAuthor = user.canAuthor === true;
   }])
 
-  .controller('StoriesCtrl', ['$scope', 'ITEMS_PER_PAGE', 'Story', 'stories', function ($scope, ITEMS_PER_PAGE, Story, stories) {
+  .controller('StoriesCtrl', ['$scope', '$timeout', '$state', '$stateParams', 'ITEMS_PER_PAGE', 'stories', 'storyCount', function ($scope, $timeout, $state, $stateParams, ITEMS_PER_PAGE, stories, storyCount) {
     $scope.stories = stories;
-    $scope.currentPage = 1;
+    $scope.totalStories = storyCount;
+    $scope.currentPage = $stateParams.page || 1;
     $scope.itemsPerPage = ITEMS_PER_PAGE;
+    $timeout(function () {
+      $scope.newStoriesLoaded = false;
+    }, 100);
 
     $scope.reloadStories = function () {
-      var skip = ($scope.currentPage - 1) * ITEMS_PER_PAGE;
-      Story.query({ skip: skip, limit: ITEMS_PER_PAGE }).then(function (_stories) {
-        $scope.stories = _stories;
-      });
+      $timeout(function () {
+        $state.go('cms.home', { page: $scope.currentPage });
+      }, 1);
     };
   }])
 
-  .controller('UserManageCtrl', ['$scope', 'User', 'users', function ($scope, User, users) {
+  .controller('UserManageCtrl', ['$scope', '$state', 'User', 'users', function ($scope, $state, User, users) {
     $scope.users = users;
+
+    $scope.updateUser = function (_user) {
+      _user.$update();
+    };
+    $scope.deleteUser = function (_user) {
+      _user.$delete().then(function () {
+        $scope.$apply(function () {
+          $state.reload();
+        });
+      });
+    };
   }])
 
   .filter('default', function () {

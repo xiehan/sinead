@@ -1,18 +1,24 @@
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>E-mail address</th>
-      <th>Can Author</th>
-      <th>Is Admin</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="user in users">
-      <td>{{user.id}}</td>
-      <td>{{user.name}}</td>
-      <td>{{user.email}}</td>
-    </tr>
-  </tbody>
-</table>
+<form id="userList" role="form">
+  <table class="full-width">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th nowrap>E-mail address</th>
+        <th nowrap>Can author</th>
+        <th nowrap>Is admin</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="_user in users">
+        <td>{{_user.id}}</td>
+        <td>{{_user.name}}</td>
+        <td>{{_user.email}}</td>
+        <td><label><input type="checkbox" ng-model="_user.canAuthor" ng-change="updateUser(_user)" /></label></td>
+        <td><input type="checkbox" ng-model="_user.isAdmin" ng-change="updateUser(_user)" /></td>
+        <td><i ng-if="_user.id != user.id" ng-click="deleteUser(_user)" class="fa fa-trash-o"></i></td>
+      </tr>
+    </tbody>
+  </table>
+</form>

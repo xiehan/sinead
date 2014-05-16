@@ -14,7 +14,7 @@
             <span class="prefix"><i class="fa fa-envelope"></i></span>
           </div>
           <div class="small-10 columns">
-            <input type="email" name="username" placeholder="email" required />
+            <input type="email" name="username" placeholder="email" required<% if (typeof username !== 'undefined') { %> value="<%= username %>"<% } %> />
           </div>
         </div>
         <div class="row collapse">

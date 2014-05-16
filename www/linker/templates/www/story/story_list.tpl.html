@@ -1,0 +1,5 @@
+<story ng-repeat="story in stories"></story>
+
+<div class="pagination-centered">
+  <pagination total-items="totalStories" page="currentPage" items-per-page="itemsPerPage" max-size="7" boundary-links="true" on-select-page="reloadStories()"></pagination>
+</div>

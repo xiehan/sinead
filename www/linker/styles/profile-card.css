@@ -1,0 +1,95 @@
+.bump {
+  margin-top: 50px;
+}
+.profile-card {
+  padding-top: 15px;
+  padding-bottom: 0px;
+  border: 1px solid #008cba;
+  border-radius: 5px;
+  background: #fff;
+  overflow: hidden;
+}
+.profile-card h4 {
+  font-family: "Proxima Nova", "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  color: #008cba;
+  font-size: 30px;
+  line-height: 26px;
+}
+.profile-card h4 span {
+  font-size: 20px;
+  color: #6f6f6f;
+  display: block;
+}
+.profile-card img {
+  border-radius: 50%;
+  border: 4px solid #69708C;
+}
+.profile-card .button-group {
+  width: 101%;
+}
+.profile-card .button-group .button {
+  margin-bottom: 0;
+  border-top: none;
+  border-left: none;
+  border-bottom: none;
+  height: 80px;
+  padding-top: 15px;
+  margin-top: 20px;
+  font-weight: 200;
+  font-size: 16px;
+  line-height: 26px;
+  color: #d8d8d8;
+  box-shadow: none;
+}
+.profile-card .button-group .button span {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+.profile-card p {
+  font-size: 16px;
+  margin-bottom: 0;
+  color: #6f6f6f;
+}
+.profile-card i {
+  color: #d8d8d8;
+}
+.profile-card .profile-data i {
+  vertical-align: middle;
+  padding-right: 5px;
+  color: #d8d8d8;
+}
+.profile-card .profile-picture {
+  text-align: center;
+}
+#sidebar .profile-card p {
+  font-size: 13px;
+}
+#sidebar .profile-card h4 {
+  font-size: 24px;
+}
+#sidebar .profile-card h4 span {
+  font-size: 16px;
+}
+#sidebar .profile-card .button-group.even-2 li:last-child a.button {
+  padding-left: 1rem;
+}
+@media only screen and (max-width: 767px) {
+  .profile-card img {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+  }
+  .profile-card h4,
+  .profile-card p {
+    text-align: center;
+  }
+  .profile-card .button-group .button {
+    font-size: 14px;
+  }
+  .profile-card .button-group .button span {
+    font-size: 20px;
+  }
+}

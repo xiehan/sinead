@@ -1,0 +1,31 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+html,
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Lato', sans-serif;
+}
+.story.story-list:not(.story-feed):not(:last-of-type) {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1.1875rem;
+  padding-bottom: 1.25rem;
+}
+.story.story-list:last-of-type {
+  margin-bottom: 4rem;
+}
+.story.story-list.story-feed p,
+.story.story-list.story-feed li {
+  font-size: 0.875rem;
+}
+ul.unstyled-list {
+  list-style-type: none;
+  margin-left: 0;
+}
+.full-width {
+  width: 100%;
+}

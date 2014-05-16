@@ -32,7 +32,6 @@ npm-debug.log
 # frontend / dist / etc
 ########################
 vendor/**/*
-www/**/*
 
 
 ########################

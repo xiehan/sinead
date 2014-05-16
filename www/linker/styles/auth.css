@@ -1,0 +1,41 @@
+body > .row:first-child {
+  margin-top: 40px;
+}
+body > .row:last-of-type {
+  margin-bottom: 40px;
+}
+.signup-panel,
+.login-panel {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-top: 30px;
+}
+.signup-panel i,
+.login-panel i {
+  font-size: 30px;
+  line-height: 50px;
+  color: #999;
+}
+.signup-panel form input,
+.login-panel form input,
+.signup-panel form span,
+.login-panel form span {
+  height: 50px;
+}
+.signup-panel .welcome,
+.login-panel .welcome {
+  font-size: 26px;
+  text-align: center;
+  margin-left: 0;
+}
+.signup-panel p,
+.login-panel p {
+  font-size: 13px;
+  font-weight: 200;
+  margin-left: 25%;
+}
+.signup-panel .button,
+.login-panel .button {
+  margin-left: 35%;
+}

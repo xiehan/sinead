@@ -1,0 +1,44 @@
+#cms .button.expand {
+  text-align: left;
+  padding-left: 0.75rem;
+}
+#cms .button.expand i {
+  color: #d8d8d8;
+  text-align: center;
+  width: 2rem;
+}
+#cms .button.expand.secondary i {
+  color: #6f6f6f;
+}
+#cms #storyEditor label {
+  color: #777;
+}
+#cms [modal-window] {
+  position: absolute !important;
+  margin-bottom: 3rem !important;
+}
+#cms [modal-window] iframe {
+  width: 99% !important;
+}
+#cms [modal-window] .datepicker-row {
+  margin-top: 5rem;
+}
+#cms [modal-window] .control-row {
+  margin-top: 3rem;
+}
+#cms [modal-window] .quickdate-button i {
+  margin-right: 1rem;
+}
+#cms [modal-window] .quickdate-popup {
+  border-color: #bbb;
+  width: 100%;
+  padding: 1rem;
+}
+#cms #userList input[type="checkbox"] {
+  margin: 0;
+  vertical-align: middle;
+}
+#cms #userList i[ng-click] {
+  color: #cf280e;
+  cursor: pointer;
+}

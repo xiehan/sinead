@@ -8,13 +8,13 @@
     <ul class="large-block-grid-2">
       <li>
         <ul class="unstyled-list">
-          <li><strong>Author:</strong> {{story.author.name}}</li>
-          <li><strong>Created:</strong> {{story.createdAt|date:'medium'}}</li>
+          <li><strong>Author:</strong> <a ng-href="/authors/{{story.author.id}}" target="_blank">{{story.author.name}}</a></li>
+          <li><strong>Published:</strong> <span ng-if="story.publishAt">{{story.publishAt|date:'medium'}}</span><span ng-if="!story.publishAt"><em>Not yet published</em></span></li>
         </ul>
       </li>
       <li>
         <ul class="unstyled-list">
-          <li><strong>Published:</strong> <span ng-if="story.publishAt">{{story.publishAt|date:'medium'}}</span><span ng-if="!story.publishAt"><em>Not yet published</em></span></li>
+          <li><strong>Created:</strong> {{story.createdAt|date:'medium'}}</li>
           <li><strong>Last Edited:</strong> {{story.updatedAt|date:'medium'}}</li>
         </ul>
       </li>

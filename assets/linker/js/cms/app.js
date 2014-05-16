@@ -97,11 +97,6 @@ angular
             loggedinUser: ['user', function (user) {
               return user;
             }]
-          },
-          views: {
-            'sidebarContent': {
-              templateUrl: 'cms/sidebar.tpl.html'
-            }
           }
         })
           .state('cms.user.profile', {
@@ -131,6 +126,9 @@ angular
               'mainContent@cms': {
                 templateUrl: 'cms/user/user_list.tpl.html',
                 controller: 'UserManageCtrl'
+              },
+              'sidebarContent@cms': {
+                templateUrl: 'cms/user/user_sidebar.tpl.html'
               }
             }
           })

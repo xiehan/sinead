@@ -1,3 +1,15 @@
-<button ng-click="createStory()" class="button expand" ng-if="canAuthor"><i class="fa fa-plus"></i> Write story</button>
-<a href="/cms/users/profile/edit" class="button expand"><i class="fa fa-user"></i> Edit profile</a>
-<a href="/cms/users/manage" class="button expand" ng-if="isAdmin"><i class="fa fa-group"></i> Manage users</a>
+<div class="row">
+  <div class="small-12 columns">
+    <button ng-click="createStory()" class="button expand" ng-if="canAuthor"><i class="fa fa-plus"></i> Write story</button>
+    <a href="/cms/users/profile/edit" class="button expand"><i class="fa fa-user"></i> Edit profile</a>
+    <a href="/cms/users/manage" class="button expand" ng-if="isAdmin"><i class="fa fa-group"></i> Manage users</a>
+  </div>
+</div>
+<div class="row" ng-if="!canAuthor && !isAdmin">
+  <div class="small-12 columns">
+    <div class="panel">
+      <h5>Note</h5>
+      <p>You currently don't have permission to author or edit stories. Please contact an administrator about giving you the appropriate privileges.</p>
+    </div>
+  </div>
+</div>

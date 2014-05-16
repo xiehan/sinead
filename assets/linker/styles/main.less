@@ -4,7 +4,19 @@ html, body, p, h1, h2, h3, h4, h5, h6 {
     font-family: 'Lato', sans-serif;
 }
 
-.story{
+h1 {
+    small {
+        font-size: 54.5454%;
+    }
+}
+
+.story {
+    h6 {
+        color: #999;
+        font-weight: 200;
+        font-style: italic;
+    }
+
     &.story-list {
         &:not(.story-feed) {
             &:not(:last-of-type) {
@@ -21,6 +33,17 @@ html, body, p, h1, h2, h3, h4, h5, h6 {
         &.story-feed {
             p, li {
                 font-size: 0.875rem;
+                color: #6f6f6f;
+
+                strong {
+                    color: #333;
+                }
+            }
+
+            > .columns.large-12 {
+                .large-block-grid-2 {
+                    width: 75%;
+                }
             }
         }
     }

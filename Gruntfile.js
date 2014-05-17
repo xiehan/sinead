@@ -54,6 +54,8 @@ module.exports = function (grunt) {
     'linker/js/vendor/angular-foundation.js',
     'linker/js/vendor/angular-foundation-tpls.js',
     'linker/js/vendor/angular-ui-tinymce.js',
+    'linker/js/vendor/angular-quick-date.js',
+    'linker/js/vendor/readmore.js',
 
     // *->    put other dependencies here   <-*
     'linker/js/cms/models/models.js',
@@ -169,7 +171,8 @@ module.exports = function (grunt) {
             dest: '.tmp/public/js/vendor/tinymce'
           },
           { '.tmp/public/linker/js/vendor/angular-quick-date.js': './vendor/ngQuickDate/dist/ng-quick-date.js' },
-          { '.tmp/public/linker/styles/vendor/angular-quick-date.css': './vendor/ngQuickDate/dist/ng-quick-date.css' }
+          { '.tmp/public/linker/styles/vendor/angular-quick-date.css': './vendor/ngQuickDate/dist/ng-quick-date.css' },
+          { '.tmp/public/linker/js/vendor/readmore.js': './vendor/readmore/readmore.js' }
         ]
       },
       prod: {

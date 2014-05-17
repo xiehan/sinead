@@ -16,7 +16,8 @@
     "angular-ui-router": "0.2.10",
     "angular-foundation": "0.2.0",
     "angular-ui-tinymce": "latest",
-    "ngQuickDate": "~1.3.0"
+    "ngQuickDate": "~1.3.0",
+    "readmore": "latest"
   },
   "resolve": {
     "jquery": "2.1.1",

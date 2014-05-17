@@ -31,6 +31,8 @@ module.exports.routes = {
   '/':    'MainController.www',
   '/cms': 'MainController.cms',
 
+  'get /api/user/:id/get_stories': 'StoryController.findAllByUser',
+
   //
   // Passport Auth Routes
   //

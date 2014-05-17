@@ -35,11 +35,12 @@ module.exports.policies = {
   },
 
   StoryController: {
-    find:    true,
-    create:  ['isAuthenticated', 'canAuthorStories'],
-    update:  ['isAuthenticated', 'canEditStories'],
-    destroy: ['isAuthenticated', 'canEditStories'],
-    count:   true
+    find:          true,
+    create:        ['isAuthenticated', 'canAuthorStories'],
+    update:        ['isAuthenticated', 'canEditStories'],
+    destroy:       ['isAuthenticated', 'canEditStories'],
+    count:         true,
+    findAllByUser: true
   }
 };
 

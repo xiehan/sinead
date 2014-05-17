@@ -90,7 +90,7 @@ angular
             },
             'sidebarContent': {
               templateUrl: 'www/user/profile_sidebar.tpl.html',
-              controller: 'SingleStoryCtrl'
+              controller: 'SingleStorySidebarCtrl'
             }
           }
         })
@@ -99,6 +99,11 @@ angular
           resolve: {
             author: ['$http', '$stateParams', function ($http, $stateParams) {
               return $http.get('/api/user/' + $stateParams.userId).then(function (response) {
+                return response.data;
+              });
+            }],
+            authorStories: ['$http', '$stateParams', function ($http, $stateParams) {
+              return $http.get('/api/user/' + $stateParams.userId + '/get_stories').then(function (response) {
                 return response.data;
               });
             }]
@@ -153,7 +158,18 @@ angular
     $scope.story = story;
   }])
 
-  .controller('UserProfileCtrl', ['$scope', 'author', function ($scope, author) {
+  .controller('SingleStorySidebarCtrl', ['$scope', '$http', 'story', function ($scope, $http, story) {
+    $scope.author = story.author;
+    $scope.author.stories = null;
+
+    // I prefer not to make AJAX requests from inside controllers if I can help it, but we need the story to get the author ID
+    $http.get('/api/user/' + story.author.id + '/get_stories').then(function (response) {
+      $scope.author.stories = response.data;
+    });
+  }])
+
+  .controller('UserProfileCtrl', ['$scope', 'author', 'authorStories', function ($scope, author, authorStories) {
+    author.stories = authorStories;
     $scope.author = author;
   }])
 
@@ -165,6 +181,17 @@ angular
       link: function postLink($scope, $element, $attrs) {}
     };
   })
+
+  .directive('collapsedStory', ['$timeout', function ($timeout) {
+    return {
+      restrict: 'A',
+      link: function postLink($scope, $element, $attrs) {
+        $timeout(function () {
+          $('.story-content', $element).readmore();
+        }, 10);
+      }
+    };
+  }])
 
 ;
 })();

@@ -1,6 +1,5 @@
-<article class="story" ng-class="{'story-list': stories}">
+<article class="story" ng-class="{'story-list': stories || (author && author.stories), 'user-story': author}">
   <h3><a ng-href="/stories/{{story.id}}">{{story.title}}</a></h3>
-  <h6>Written by <a ng-href="/authors/{{story.author.id}}">{{story.author.name}}</a> on {{story.publishAt|date:'medium'}}.</h6>
-  <div ng-bind-html="story.content">
-  </div>
+  <h6>Written <span ng-if="story.author.name">by <a ng-href="/authors/{{story.author.id}}">{{story.author.name}}</a></span> on {{story.publishAt|date:'medium'}}.</h6>
+  <div class="story-content" ng-bind-html="story.content"></div>
 </article>

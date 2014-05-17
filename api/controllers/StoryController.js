@@ -37,10 +37,16 @@ module.exports = {
   },
 
   findAllByUser: function (req, res) {
-    var targetUserId = req.param('id');
+    var targetUserId = req.param('id'),
+      where = { author: targetUserId },
+      sort = 'createdAt DESC';
+    if (req.get('Referer').indexOf('/cms') < 0) { // @TODO find a better way to do this
+      where.publishAt = { '<=': (new Date()) };
+      sort = 'publishAt DESC';
+    }
     if (typeof targetUserId !== 'undefined' && targetUserId !== null) {
       // @TODO Consider: is it worth checking whether the user is a valid user first? For now, not bothering...
-      Story.find().where({ author: targetUserId }).exec(function (err, stories) {
+      Story.find().where(where).sort(sort).exec(function (err, stories) {
         if (err) {
           return res.send(500, err);
         }

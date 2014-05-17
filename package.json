@@ -2,11 +2,12 @@
   "name": "sinead",
   "version": "0.0.0",
   "description": "A content management system for the 21st century",
-  "author": {
-    "name": "Nara Kasbergen",
-    "email": "nara@nara-designs.com"
+  "author": "Nara Kasbergen <nara@nara-designs.com>",
+  "homepage": "https://github.com/xiehan/sinead",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiehan/sinead.git"
   },
-  "repository": "",
   "dependencies": {
     "sails": "0.9.16",
     "bower": "~1.3.0",

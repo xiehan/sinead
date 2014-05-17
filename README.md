@@ -1,2 +1,2 @@
 # sinead
-### a Sails application
+### A content management system for the 21st Century

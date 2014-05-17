@@ -1,5 +1,5 @@
-var swagger = require('swagger-node-express'),
-  passport = require('passport');
+var passport = require('passport');
+//var swagger = require('swagger-node-express');
 
 module.exports.express = {
   customMiddleware: function (app) {

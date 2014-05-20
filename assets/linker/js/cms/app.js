@@ -69,7 +69,7 @@ angular
               }
               return Story.query(params).$promise.then(callback);
             }],
-            storyCount: ['$stateParams', 'Story', function ($stateParams, Story) {
+            storyCount: ['$stateParams', 'Story', 'user', function ($stateParams, Story, user) {
               var params = {};
               if ($stateParams.filter && $stateParams.filter !== 'all') {
                 angular.extend(params, { filter: $stateParams.filter });
@@ -179,6 +179,7 @@ angular
     $rootScope.newStoriesLoaded = false;
 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+      console.error(error.data ? error.data.message : (error.message? error.message : error));
       // For now, until I figure out how I really want to do error handling...
       if (toState.name !== 'cms.home') {
         $state.go('cms.home');

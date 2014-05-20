@@ -9,7 +9,7 @@
       </div>
       <div class="row collapse">
         <ul class="button-group even-2">
-          <li><a ng-href="/authors/{{author.id}}" class="button"> Stories <span ng-if="author.stories != null">{{author.stories.length}} </span></a></li>
+          <li><a ng-href="/authors/{{author.id}}" class="button"> Stories <span ng-if="totalStories != null">{{totalStories}} </span></a></li>
           <li><a ng-href="/authors/{{author.id}}" class="button"> Comments <span>0 </span></a></li>
         </ul>
       </div>

@@ -12,7 +12,7 @@
       </div>
       <div class="row collapse">
         <ul class="button-group even-3">
-          <li><a href="#" class="button"> Stories <span>{{author.stories.length}} </span></a></li>
+          <li><a href="#" class="button"> Stories <span>{{totalStories}} </span></a></li>
           <li><a href="#" class="button"> Comments <span>0 </span></a></li>
           <li><a href="#" class="button"> Followers <span>42 </span></a></li>
         </ul>
@@ -20,9 +20,10 @@
     </div>
   </div>
 </div>
-<div id="storiesByAuthor" class="row bump" ng-if="author.stories">
+<div id="storiesByAuthor" class="row" ng-class="{ 'bump': totalStories <= author.stories.length }" ng-if="author.stories">
   <div class="small-12 columns">
-    <h2><ng-pluralize count="author.stories.length" when="{'0': 'No stories', 'one': '1 story', 'other': 'All {} stories'}"></ng-pluralize> by {{author.name}}</h2>
+    <h2><ng-pluralize count="totalStories" when="{'0': 'No stories', 'one': '1 story', 'other': 'All {} stories'}"></ng-pluralize> by {{author.name}}</h2>
     <story ng-repeat="story in author.stories" collapsed-story></story>
   </div>
 </div>
+<button id="loadMore" class="bump button expand secondary" ng-class="{ 'disabled': loadingMoreStories }" ng-if="totalStories > author.stories.length" ng-click="loadMore()">Load More</button>

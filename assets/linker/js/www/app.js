@@ -106,6 +106,11 @@ angular
               return $http.get('/api/user/' + $stateParams.userId + '/get_stories').then(function (response) {
                 return response.data;
               });
+            }],
+            storyCount: ['$http', '$stateParams', function ($http, $stateParams) {
+              return $http.get('/api/story/count?author=' + $stateParams.userId).then(function (response) {
+                return response.data.total;
+              });
             }]
           },
           views: {
@@ -160,17 +165,30 @@ angular
 
   .controller('SingleStorySidebarCtrl', ['$scope', '$http', 'story', function ($scope, $http, story) {
     $scope.author = story.author;
-    $scope.author.stories = null;
+    $scope.totalStories = null;
 
     // I prefer not to make AJAX requests from inside controllers if I can help it, but we need the story to get the author ID
-    $http.get('/api/user/' + story.author.id + '/get_stories').then(function (response) {
-      $scope.author.stories = response.data;
+    $http.get('/api/story/count?author=' + story.author.id).then(function (response) {
+      $scope.totalStories = response.data.total;
     });
   }])
 
-  .controller('UserProfileCtrl', ['$scope', 'author', 'authorStories', function ($scope, author, authorStories) {
+  .controller('UserProfileCtrl', ['$scope', '$http', 'author', 'authorStories', 'storyCount', function ($scope, $http, author, authorStories, storyCount) {
     author.stories = authorStories;
     $scope.author = author;
+    $scope.totalStories = storyCount;
+    $scope.loadingMoreStories = false;
+    var skip = 0;
+
+    $scope.loadMore = function () {
+      $scope.loadingMoreStories = true;
+      skip += 10; // @TODO see about not hard-coding this in
+      $http.get('/api/user/' + author.id + '/get_stories?skip=' + skip).then(function (response) {
+        authorStories = authorStories.concat(response.data);
+        $scope.author.stories = authorStories;
+        $scope.loadingMoreStories = false;
+      });
+    };
   }])
 
   .directive('story', function () {

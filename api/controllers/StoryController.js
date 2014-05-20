@@ -75,12 +75,27 @@ module.exports = {
       }
     }
     if (typeof targetUserId !== 'undefined' && targetUserId !== null) {
-      // @TODO Consider: is it worth checking whether the user is a valid user first? For now, not bothering...
-      Story.find().where(where).sort(sort).skip(skip).limit(limit).exec(function (err, stories) {
-        if (err) {
-          return res.send(500, err);
+      User.findOneById(targetUserId).then(function (user) {
+        if (!user) { // not sure if this can happen in the promise-based model?
+          return res.send(404, err);
         }
-        return res.json(stories);
+
+        var stories = Story.find().where(where).sort(sort).skip(skip).limit(limit).then(function (stories) {
+          return stories;
+        }).fail(function (err) {
+          // Unexpected error occurred-- skip to the app's default error (500) handler
+          return res.send(500, err);
+        });
+
+        return [stories, user];
+      }).spread(function (stories, user) {
+        for (var index in stories) {
+          stories[index].author = user;
+        }
+        return res.json(stories, 200);
+      }).fail(function (err) {
+        // Unexpected error occurred-- skip to the app's default error (500) handler
+        return res.send(500, err);
       });
     } else {
       return res.send(400, 'You must supply a user ID to retrieve stories for!');
@@ -104,6 +119,7 @@ module.exports = {
           // Unexpected error occurred-- for now, just return the story as-is
           return null;
         });
+        
         return [story, user];
       }).spread(function (story, user) {
         story.author = user;

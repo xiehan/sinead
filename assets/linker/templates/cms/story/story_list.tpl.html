@@ -4,13 +4,13 @@
     <a ui-sref="cms.home({ filter: filter.value, page: (filter == secondaryFilter) ? currentPage : 1 })">{{filter.label}}</a>
   </dd>
   <dd class="divider">|</dd>
-  <dd class="active"><a ui-sref="cms.home({ filter: filter.value, page: currentPage })">By everyone</a></dd>
-  <dd><a ui-sref="cms.home({ filter: filter.value, page: 1, show: 'mine' })">By me</a></dd>
+  <dd class="active"><a ui-sref="cms.home({ filter: secondaryFilter.value, page: currentPage })">By everyone</a></dd>
+  <dd><a ui-sref="cms.home({ filter: secondaryFilter.value, page: 1, show: 'mine' })">By me</a></dd>
 </dl>
 <dl class="sub-nav" ng-if="showOnlyByMe">
   <dt>Filter:</dt>
   <dd ng-class="{ 'active': (filter == secondaryFilter) }" ng-repeat="filter in secondaryFilters">
-    <a ui-sref="cms.home({ filter: filter.value, page: (filter == secondaryFilter) ? currentPage : 1, show: 'mine' })">All</a>
+    <a ui-sref="cms.home({ filter: filter.value, page: (filter == secondaryFilter) ? currentPage : 1, show: 'mine' })">{{filter.label}}</a>
   </dd>
   <dd class="divider">|</dd>
   <dd><a ui-sref="cms.home({ filter: secondaryFilter.value, page: 1 })">By everyone</a></dd>

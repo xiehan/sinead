@@ -6,6 +6,43 @@ See it in action: http://sinead.herokuapp.com/
 Currently, anyone can sign up but I have to individually give users access to post. Just shoot me an e-mail if you'd like posting access (as a way of testing the platform); obviously, it isn't meant to be used as a real blog.
 
 
+##### What is Sinead? Why this project?
+
+I've been blogging on various platforms since I was 11 years old, but I realized recently that I'm not really excited about maintaining my blog anymore, in large part because the CMS I use (TextPattern) is so clunky and feels dated, and I don't like any of the mainstream alternatives (WordPress, Joomla, etc.). Also, I work as a developer at [NPR](http://npr.org), and I spent my first several months working on the CMS, which gave me an even deeper appreciation for how difficult it is to design a CMS that's both highly functional and highly usable. I decided it was a challenge I'd like to take on, and I was fortunate enough to have time to start on it during NPR's 10th [Serendipity Days](http://www.npr.org/blogs/inside/2011/10/14/141312774/happy-accidents-the-joy-of-serendipity-days) in May 2014.
+
+Although I've somewhat facetiously been calling my project "A content management system for the 21st Century", I realize it's still very far from a fully-fledged product deserving of that subtitle. My focus so far has mainly been on developing an architecture that makes it easy to expand functionality and iterate over ideas, so it may be more appropriate to call it "An environment for prototyping a content management system for the 21st Century".
+
+##### Why the name 'Sinead'?
+
+At NPR, our CMS is codenamed 'Seamus', so when I was using NPR's Serendipity Days to work on a CMS project, I felt that name-wise, it should somehow be related to Seamus. I ended up sticking with the Gaelic theme but wanted mine to be female, so that's why I landed on the name 'Sinead'. ('Seamus' is the Gaelic equivalent of 'James', and 'Sinead' is the equivalent of 'Jane' or 'Janet'.)
+
+
+---
+
+### Backend architecture
+
+Sinead was built using [Sails](http://sailsjs.org), which is built on top of the [Express](http://expressjs.com) framework for [Node.js](http://nodejs.org). The great thing about Sails is that it was optimized with a REST API in mind, and comes with a lot of built-in functionality to automatically generate API endpoints and basic controllers for each of your data models. I've done a lot to harness this already and will certainly continue to do so in the future.
+
+The only problem with Sails is that the current stable release still hasn't implemented the ability to link between data models (ie. JOINs). I know it's in the works and currently in the release-candidate version; as soon as that functionality is released to the stable branch, I plan to implement it. Until then, I'm putting adding any more data models (such as tags and categories) on hold, as it's not worth it to me to add all of the additional manual work to simulate JOINs.
+
+Although Sails come with an ORM and is therefore ideally database-agnostic, Sinead has currently only been proven to work with MySQL databases. I tried Mongo but was running into problems associating stories with users. Upgrading to the new version of Sails may solve this problem, so I also don't plan to spend any more time on debugging Mongo integration until then.
+
+Authentication is handled using [Passport](http://passportjs.org). It currently uses a simple local strategy, but I'd like to expand to full OAuth support in the future.
+
+
+---
+
+### Frontend architecture and visual design/UI framework
+
+The frontend is almost entirely implemented in [AngularJS](http://angularjs.org); although Express/Sails do come with a basic built-in method for rendering views and partials, I've made use of it only minimally &mdash; essentially only to render the base index.html file, as well as the two Signup and Login views (but I may investigate bringing those into Angular soon; not sure yet).
+
+Because the two frontends (what I've nicknamed 'WWW' for the web-facing side, and 'CMS' for the internal content tool) are both still pretty minimal so far, I haven't spent that much time working out a formal frontend architecture, and so the current file/folder setup that you see (mainly in `assets/linker/js` and `assets/linker/templates`) is still largely subject to change. The only semi-conscious decision I've made is separating WWW and CMS into two completely separate apps, and even that is something I'd like to revisit (since there is some degree of overlapping code).
+
+The visual and UI designs are based off the [ZURB Foundation](http://foundation.zurb.com) HTML/CSS framework, with only minimal customizations. I'd like to expand on these to make them more custom (and customizable), but for right now, it isn't my biggest focus.
+
+One thing I am making sure of, though, is that it's fully mobile-responsive. I don't feel like there are a lot of good mobile responsive CMS's out there yet, so that's where I'd like to try to set Sinead apart.
+
+
 ---
 
 ### Deployment
@@ -47,9 +84,11 @@ Because there's so much, I've broken it up into three categories: short-term, me
 #### Short-term
 
 * Clean up some of the visual/UI design elements, particularly the header/top nav, which is just not great on mobile
+* Figure out what to do with that sidebar on the WWW side &mdash; whether it's actually adding the ability to feature a story, or something else
 * Add AngularJS to the sign-up and login forms for improved front-end form validation
 * Add a captcha to the sign-up form
 * Get production mode working (with minified CSS/JS)
+* Make sure the CMS JS code doesn't get loaded when rendering the WWW side (and ideally vice-versa, although that isn't as important)
 * Add a subtle icon to the WWW side that lets a logged-in story author go straight into that story in the CMS to edit it
 * Add an admin dashboard to control some basic configuration settings (eg. whether or not anyone can sign up, whether or not new sign-ups automatically have posting access, whether or not anyone can edit (maybe), etc.)
 * Add a basic preview mode to stories in the CMS
@@ -59,6 +98,7 @@ Because there's so much, I've broken it up into three categories: short-term, me
 * Figure out how to add Twitter cards to individual stories (and maybe the site as a whole, but only the WWW side)
 * Work on integrating other social sharing tools and Google Analytics, but keeping them configurable
 * Investigate adding an API key check for POST/PUT/DELETE requests for added security
+* Better (custom) error pages / error handling in general
 * See if it's possible to get this working with MongoDB (and possibly other database types besides MySQL)
 
 #### Medium-term
@@ -68,6 +108,7 @@ Because there's so much, I've broken it up into three categories: short-term, me
 * Ability to add (invite) users from inside the CMS (they'll be sent an e-mail and if they confirm, their account is created with posting rights automatically)
 * E-mail confirmation of new user sign-ups
 * E-mail notifications (and notifications in general)
+* Expand OAuth support
 * Some basic way(s) to upload/embed media in stories
 * Add many more configurable settings to the admin dashboard (eg. allowing admins to choose between schemas for formatting story URLs)
 * Add some Textpattern-style user permission levels
@@ -87,6 +128,8 @@ Because there's so much, I've broken it up into three categories: short-term, me
 * Add a way to attribute a story to more than one author (ie. journalism-style bylines)
 * Continue to expand user levels, and make them more configurable
 * Add support for localization
+* Investigate caching and performance
+* Test cases...
 
 
 ---

@@ -46,19 +46,28 @@ angular
         }
       })
         .state('cms.home', {
-          url: '?page',
+          url: '?page&filter&show',
           resolve: {
-            stories: ['Story', '$stateParams', '$rootScope', function (Story, $stateParams, $rootScope) {
-              var params = { limit: ITEMS_PER_PAGE };
+            stories: ['$rootScope', '$stateParams', 'Story', 'User', 'user', function ($rootScope, $stateParams, Story, User, user) {
+              var params = { limit: ITEMS_PER_PAGE },
+                callback;
               if ($stateParams.page) {
                 angular.extend(params, { skip: ($stateParams.page - 1) * ITEMS_PER_PAGE });
               }
-              return Story.query(params).$promise.then(function (stories) {
+              if ($stateParams.filter && $stateParams.filter !== 'all') {
+                angular.extend(params, { filter: $stateParams.filter });
+              }
+              callback = function (stories) {
                 if ($stateParams.page) {
                   $rootScope.newStoriesLoaded = true;
                 }
                 return stories;
-              });
+              };
+              if ($stateParams.show && $stateParams.show === 'mine') {
+                angular.extend(params, { id: user.id });
+                return User.getStories(params).$promise.then(callback);
+              }
+              return Story.query(params).$promise.then(callback);
             }],
             storyCount: ['$stateParams', 'Story', function ($stateParams, Story) {
               var params = {};
@@ -198,7 +207,7 @@ angular
     $scope.canAuthor = user.canAuthor === true;
   }])
 
-  .controller('StoriesCtrl', ['$scope', '$timeout', '$state', '$stateParams', 'ITEMS_PER_PAGE', 'stories', 'storyCount', function ($scope, $timeout, $state, $stateParams, ITEMS_PER_PAGE, stories, storyCount) {
+  .controller('StoriesCtrl', ['$scope', '$timeout', '$filter', '$state', '$stateParams', 'ITEMS_PER_PAGE', 'stories', 'storyCount', function ($scope, $timeout, $filter, $state, $stateParams, ITEMS_PER_PAGE, stories, storyCount) {
     $scope.stories = stories;
     $scope.totalStories = storyCount;
     $scope.currentPage = $stateParams.page || 1;
@@ -206,6 +215,28 @@ angular
     $timeout(function () {
       $scope.newStoriesLoaded = false;
     }, 100);
+    $scope.showOnlyByMe = $stateParams.show && $stateParams.show === 'mine';
+
+    $scope.secondaryFilters = [
+      {
+        label: 'All',
+        value: 'all'
+      },
+      {
+        label: 'Published & Live',
+        value: 'published'
+      },
+      {
+        label: 'Scheduled',
+        value: 'scheduled'
+      },
+      {
+        label: 'Draft',
+        value: 'draft'
+      }
+    ];
+    $scope.filteredFilter = $stateParams.filter ? $filter('filter')($scope.secondaryFilters, { value: $stateParams.filter }) : null;
+    $scope.secondaryFilter = $scope.filteredFilter ? $scope.filteredFilter[0] : $scope.secondaryFilters[0];
 
     $scope.deleteStory = function (story) {
       story.$delete().then(function (_story) {
@@ -217,8 +248,10 @@ angular
     };
 
     $scope.reloadStories = function () {
+      var params = angular.extend({}, $stateParams);
       $timeout(function () {
-        $state.go('cms.home', { page: $scope.currentPage });
+        angular.extend(params, { page: $scope.currentPage });
+        $state.go('cms.home', params);
       }, 1);
     };
   }])

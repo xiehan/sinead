@@ -54,6 +54,6 @@
 There were no results for this filter.
 </alert>
 
-<div class="pagination-centered" ng-if="stories.length > 0">
+<div class="pagination-centered" ng-show="stories.length > 0">
   <pagination total-items="totalStories" page="currentPage" items-per-page="itemsPerPage" max-size="7" boundary-links="true" on-select-page="reloadStories()"></pagination>
 </div>

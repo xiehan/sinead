@@ -60,9 +60,16 @@ angular
                 return stories;
               });
             }],
-            storyCount: ['Story', function (Story) {
-              return Story.count().$promise.then(function (count) {
-                return count[0]; // wtf why is this an array
+            storyCount: ['$stateParams', 'Story', function ($stateParams, Story) {
+              var params = {};
+              if ($stateParams.filter && $stateParams.filter !== 'all') {
+                angular.extend(params, { filter: $stateParams.filter });
+              }
+              if ($stateParams.show && $stateParams.show === 'mine') {
+                angular.extend(params, { author: user.id });
+              }
+              return Story.count(params).$promise.then(function (count) {
+                return count.total;
               });
             }]
           },
@@ -101,7 +108,6 @@ angular
               }]
             },
             onEnter: ['$state', 'StoryEditor', 'story', function ($state, StoryEditor, story) {
-              console.debug('onEnter');
               return StoryEditor.onEnter(story, function onClose(_newState) {
                 $state.go('cms.home');
               });

@@ -60,7 +60,7 @@ angular
             }],
             storyCount: ['$http', function ($http) {
               return $http.get('/api/story/count').then(function (response) {
-                return response.data;
+                return response.data.total;
               });
             }]
           },

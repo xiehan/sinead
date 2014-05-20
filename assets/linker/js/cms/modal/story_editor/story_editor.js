@@ -49,37 +49,55 @@ angular
   })
 
   .controller('StoryEditorCtrl', ['$scope', '$timeout', 'tinymceDefaultOptions', '$modalInstance', 'story', function ($scope, $timeout, tinymceDefaultOptions, $modalInstance, story) {
-    var authorId = story.author.id;
-    var handleSave = function () {
-      if (angular.isObject(story.author)) {
-        story.author = story.author.id; // I shouldn't have to do this on the front-end but I don't have time to debug Sails right now...
-      } else {
-        story.author = authorId;
-      }
+    var authorId = story.author.id,
+      isTimedSaving = false,
+      needsTimedSave = false;
+    var handleSave = function (callback) {
+      $scope.isSaving = true;
+      story.author = authorId; // I shouldn't have to do this on the front-end but I don't have time to debug Sails right now...
       story.$update().then(function () {
         $scope.isSaving = false;
         $scope.isSaved = true;
         $timeout(function () {
           $scope.isSaved = false;
         }, 3000);
-      });
+      }).then(callback);
+    };
+    var handleTimedSave = function (callback) {
+      if (!isTimedSaving) {
+        isTimedSaving = true;
+        needsTimedSave = false;
+        handleSave(callback);
+        $timeout(function () {
+          isTimedSaving = false;
+          if (needsTimedSave) {
+            handleTimedSave(callback);
+          }
+        }, 10000);
+      } else {
+        needsTimedSave = true;
+      }
     };
     var handleAutosave = function (newValue, oldValue) {
-      if (oldValue !== undefined && newValue !== oldValue) {
-        $scope.isSaving = true;
+      if (newValue !== oldValue) {
         handleSave();
+      }
+    };
+    var handleTimedAutosave = function (newValue, oldValue) {
+      if (oldValue !== null && newValue !== oldValue) {
+        handleTimedSave();
       }
     };
 
     $scope.story = story;
     $scope.tinymceOptions = tinymceDefaultOptions;
-
-    $scope.save = handleSave;
     $scope.isSaving = false;
     $scope.isSaved = false;
 
-    $scope.$watch('story.content', handleAutosave);
+    $scope.$watch('story.content', handleTimedAutosave);
     $scope.$watch('story.publishAt', handleAutosave);
+
+    $scope.save = handleSave;
 
     $scope.nowOrLater = function (_date) {
       return _date >= (new Date());
@@ -95,8 +113,15 @@ angular
     };
 
     $scope.close = function () {
-      $modalInstance.close();
-      $scope.$destroy();
+      if (needsTimedSave) {
+        handleSave(function () {
+          $modalInstance.close();
+          $scope.$destroy();
+        });
+      } else {
+        $modalInstance.close();
+        $scope.$destroy();
+      }
     };
     $scope.cancel = function () {
       $modalInstance.dismiss();

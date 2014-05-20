@@ -16,6 +16,13 @@ angular
         params: {
           verb: 'identify'
         }
+      },
+      getStories: {
+        method: 'GET',
+        isArray: true,
+        params: {
+          verb: 'get_stories'
+        }
       }
     });
   }])

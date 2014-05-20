@@ -3,7 +3,7 @@
 
 See it in action: http://sinead.herokuapp.com/
 
-Currently, anyone can sign up but I have to individually give users access to post. Just shoot me an e-mail if you'd like posting access (as a way of testing the platform). Obviously, it isn't meant to be used as a real blog.
+Currently, anyone can sign up but I have to individually give users access to post. Just shoot me an e-mail if you'd like posting access (as a way of testing the platform); obviously, it isn't meant to be used as a real blog.
 
 
 ---
@@ -47,6 +47,7 @@ Because there's so much, I've broken it up into three categories: short-term, me
 #### Short-term
 
 * Clean up some of the visual/UI design elements, particularly the header/top nav, which is just not great on mobile
+* Add AngularJS to the sign-up and login forms for improved front-end form validation
 * Add a captcha to the sign-up form
 * Get production mode working (with minified CSS/JS)
 * Add a subtle icon to the WWW side that lets a logged-in story author go straight into that story in the CMS to edit it
@@ -85,6 +86,7 @@ Because there's so much, I've broken it up into three categories: short-term, me
 * Add a way to generate and edit additional views from inside the CMS (ie. NPR's aggregations, AKA "aggs")
 * Add a way to attribute a story to more than one author (ie. journalism-style bylines)
 * Continue to expand user levels, and make them more configurable
+* Add support for localization
 
 
 ---

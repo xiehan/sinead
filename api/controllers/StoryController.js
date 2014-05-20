@@ -24,29 +24,59 @@ module.exports = {
   _config: {},
 
   count: function (req, res) {
-    var filter = {};
+    var where = {},
+      filter = req.param('filter'),
+      user = req.param('author');
     if (req.get('Referer').indexOf('/cms') < 0) { // @TODO find a better way to do this
-      filter.publishAt = { '<=': (new Date()) };
+      where.publishAt = { '<=': (new Date()) };
     }
-    Story.count().where(filter).exec(function (err, num) {
+    if (filter) {
+      if (filter === 'published') {
+        where.publishAt = { '<=': (new Date()) };
+      } else if (req.get('Referer').indexOf('/cms') >= 0) {
+        if (filter === 'draft') {
+          where.publishAt = null;
+        } else if (filter === 'scheduled') {
+          where.publishAt = { '>': (new Date()) };
+        }
+      }
+    }
+    if (user) {
+      where.author = user;
+    }
+    Story.count().where(where).exec(function (err, num) {
       if (err) {
         return res.send(500, err);
       }
-      return res.json(num);
+      return res.json({ total: num });
     });
   },
 
   findAllByUser: function (req, res) {
     var targetUserId = req.param('id'),
       where = { author: targetUserId },
-      sort = 'createdAt DESC';
+      sort = 'createdAt DESC',
+      skip = req.param('skip') || 0,
+      limit = req.param('limit') || 10,
+      filter = req.param('filter');
     if (req.get('Referer').indexOf('/cms') < 0) { // @TODO find a better way to do this
       where.publishAt = { '<=': (new Date()) };
       sort = 'publishAt DESC';
     }
+    if (filter) {
+      if (filter === 'published') {
+        where.publishAt = { '<=': (new Date()) };
+      } else if (req.get('Referer').indexOf('/cms') >= 0) {
+        if (filter === 'draft') {
+          where.publishAt = null;
+        } else if (filter === 'scheduled') {
+          where.publishAt = { '>': (new Date()) };
+        }
+      }
+    }
     if (typeof targetUserId !== 'undefined' && targetUserId !== null) {
       // @TODO Consider: is it worth checking whether the user is a valid user first? For now, not bothering...
-      Story.find().where(where).sort(sort).exec(function (err, stories) {
+      Story.find().where(where).sort(sort).skip(skip).limit(limit).exec(function (err, stories) {
         if (err) {
           return res.send(500, err);
         }
@@ -60,7 +90,8 @@ module.exports = {
   find: function (req, res) {
     var targetStoryId = req.param('id'),
       skip = req.param('skip') || 0,
-      limit = req.param('limit') || 5;
+      limit = req.param('limit') || 5,
+      filter = req.param('filter');
     if (typeof targetStoryId !== 'undefined' && targetStoryId !== null) {
       Story.findOneById(targetStoryId).then(function (story) {
         if (!story) { // not sure if this can happen in the promise-based model?
@@ -82,13 +113,24 @@ module.exports = {
         return res.send(500, err);
       });
     } else {
-      var filter = {},
+      var where = {},
         sort = 'createdAt DESC';
       if (req.get('Referer').indexOf('/cms') < 0) { // @TODO find a better way to do this
-        filter.publishAt = { '<=': (new Date()) };
+        where.publishAt = { '<=': (new Date()) };
         sort = 'publishAt DESC';
       }
-      Story.find().where(filter).sort(sort).skip(skip).limit(limit).then(function (stories) {
+      if (filter) {
+        if (filter === 'published') {
+          where.publishAt = { '<=': (new Date()) };
+        } else if (req.get('Referer').indexOf('/cms') >= 0) {
+          if (filter === 'draft') {
+            where.publishAt = null;
+          } else if (filter === 'scheduled') {
+            where.publishAt = { '>': (new Date()) };
+          }
+        }
+      }
+      Story.find().where(where).sort(sort).skip(skip).limit(limit).then(function (stories) {
         var toFindAuthorHash = {},
           where = { or: [] };
         // TODO integrate underscore or something to make looping easier

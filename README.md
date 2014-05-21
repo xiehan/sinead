@@ -77,6 +77,22 @@ In the future, I'll make sure the project gets optimized for deployment to other
 
 ---
 
+### Development
+
+If you either want to fork Sinead to add your own customizations or contribute to the main project here, you're going to need the following tools:
+
+1. [Node.js](http://nodejs.org) &mdash; see their website for the most up-to-date installation instructions
+2. Sails: `sudo npm install -g sails`
+3. Grunt: `sudo npm install -g grunt-cli`
+4. Bower: `sudo npm install -g bower`
+
+Once you clone or fork this repository, you'll need to run `npm install` and `bower install` in this directory to make sure you have all of the required dependencies.
+
+Sails runs our main development Grunt task anytime it's running and detects changes, but it's not foolproof, so you can also trigger the refresh of static assets using the command-line command `grunt build`.
+
+
+---
+
 ### To-do List
 
 Because there's so much, I've broken it up into three categories: short-term, medium-term, and long-term.

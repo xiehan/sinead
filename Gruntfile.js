@@ -136,6 +136,7 @@ module.exports = function (grunt) {
   grunt.loadTasks(depsPath + '/grunt-contrib-less/tasks');
   grunt.loadTasks(depsPath + '/grunt-contrib-coffee/tasks');
   grunt.loadNpmTasks('grunt-angular-templates');
+  grunt.loadNpmTasks('git-changelog');
 
   // Project configuration.
   grunt.initConfig({
@@ -472,6 +473,27 @@ module.exports = function (grunt) {
         // When assets are changed:
         tasks: ['compileAssets', 'linkAssets']
       }
+    },
+
+    git_changelog: {
+      minimal: {
+        options: {
+          repo_url: '<%= pkg.repository.url %>',
+          appName: '<%= pkg.name %>',
+          version: '<%= pkg.version %>',
+          file: 'Home.md',
+          grep_commits: '^fix|^feat'
+        }
+      },
+      extended: {
+        options: {
+          repo_url: '<%= pkg.repository.url %>',
+          appName: '<%= pkg.name %>: <%= pkg.description %>',
+          version: '<%= pkg.version %>',
+          file: 'CHANGELOG.md',
+          grep_commits: '^fix|^feat|^docs|^refactor|^chore|BREAKING'
+        }
+      }
     }
   });
 
@@ -492,7 +514,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('linkAssets', [
-
     // Update link/script/template references in `assets` index.html
     'sails-linker:devJs',
     'sails-linker:devStyles',
@@ -534,6 +555,10 @@ module.exports = function (grunt) {
 
   grunt.registerTask('heroku:development', 'build');
   grunt.registerTask('heroku:production', 'prod');
+
+  grunt.registerTask('release', [
+    'git_changelog'
+  ]);
 
   // When API files are changed:
   // grunt.event.on('watch', function(action, filepath) {

@@ -89,22 +89,42 @@ angular
             },
             'sidebarContent': {
               templateUrl: 'cms/sidebar.tpl.html'
-            }
+            },
+            // 'offCanvasContent': {
+            //   templateUrl: 'cms/sidebar.tpl.html'
+            // }
           }
         })
         .state('cms.story', {
           abstract: true,
-          url: '^/cms/stories'
+          url: '^/cms/stories',
+          resolve: {
+            canAuthor: ['$q', 'user', function ($q, user) {
+              if (!user.canAuthor) {
+                return $q.reject('You do not have permission to author posts!');
+              }
+              return true;
+            }],
+            user: ['user', function (user) {
+              return user;
+            }]
+          }
         })
+          .state('cms.story.create', {
+            url: '/write',
+            resolve: {
+              story: ['Story', 'csrfToken', function (Story, csrfToken) {
+                var story = new Story();
+                return story.$save();
+              }]
+            },
+            onEnter: ['$state', 'story', function ($state, story) {
+              $state.go('cms.story.edit', { storyId: story.id }, { location: 'replace' });
+            }]
+          })
           .state('cms.story.edit', {
             url: '/:storyId/edit',
             resolve: {
-              canAuthor: ['$q', 'user', function ($q, user) {
-                if (!user.canAuthor) {
-                  return $q.reject('You do not have permission to author posts!');
-                }
-                return true;
-              }],
               story: ['$q', '$stateParams', 'Story', 'user', function ($q, $stateParams, Story, user) {
                 return Story.get({ id: $stateParams.storyId }).$promise.then(function (story) {
                   if (!user.isAdmin) {
@@ -176,6 +196,9 @@ angular
   }])
 
   .run(['$rootScope', '$state', function ($rootScope, $state) {
+    $rootScope.loggedIn = true;
+    $rootScope.isAdmin = false;
+    $rootScope.canAuthor = false;
     $rootScope.newStoriesLoaded = false;
 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
@@ -191,8 +214,6 @@ angular
 
   .controller('CMSCtrl', ['$scope', '$state', 'Story', function ($scope, $state, Story) {
     $scope.user = null;
-    $scope.isAdmin = false;
-    $scope.canAuthor = false;
 
     $scope.createStory = function () {
       var story = new Story();
@@ -202,10 +223,10 @@ angular
     };
   }])
 
-  .controller('UserCtrl', ['$scope', 'user', function ($scope, user) {
+  .controller('UserCtrl', ['$scope', '$rootScope', 'user', function ($scope, $rootScope, user) {
     $scope.user = user;
-    $scope.isAdmin = user.isAdmin === true;
-    $scope.canAuthor = user.canAuthor === true;
+    $rootScope.isAdmin = user.isAdmin === true;
+    $rootScope.canAuthor = user.canAuthor === true;
   }])
 
   .controller('StoriesCtrl', ['$scope', '$timeout', '$filter', '$state', '$stateParams', 'ITEMS_PER_PAGE', 'stories', 'storyCount', function ($scope, $timeout, $filter, $state, $stateParams, ITEMS_PER_PAGE, stories, storyCount) {

@@ -128,18 +128,22 @@ angular
   }])
 
   .run(['$rootScope', function ($rootScope) {
+    $rootScope.loggedIn = false;
+    $rootScope.isAdmin = false;
+    $rootScope.canAuthor = false;
     $rootScope.newStoriesLoaded = false;
   }])
 
   .controller('WWWCtrl', ['$scope', function ($scope) {
-    $scope.loggedIn = false;
     $scope.user = null;
   }])
 
-  .controller('UserCtrl', ['$scope', 'user', function ($scope, user) {
+  .controller('UserCtrl', ['$scope', '$rootScope', 'user', function ($scope, $rootScope, user) {
     $scope.user = user;
     if (user) {
-      $scope.loggedIn = true;
+      $rootScope.loggedIn = true;
+      $rootScope.isAdmin = user.isAdmin === true;
+      $rootScope.canAuthor = user.canAuthor === true;
     }
   }])
 

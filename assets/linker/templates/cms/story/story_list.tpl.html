@@ -27,13 +27,13 @@
     <p ng-if="!story.content"><em>No content</em></p>
     <ul class="large-block-grid-2">
       <li>
-        <ul class="unstyled-list">
+        <ul class="no-bullet">
           <li><strong>Author:</strong> <a ng-href="/authors/{{story.author.id}}" target="_blank">{{story.author.name}}</a></li>
           <li><strong>Published:</strong> <span ng-if="story.publishAt">{{story.publishAt|date:'medium'}}</span><span ng-if="!story.publishAt"><em>Not yet published</em></span></li>
         </ul>
       </li>
       <li>
-        <ul class="unstyled-list">
+        <ul class="no-bullet">
           <li><strong>Created:</strong> {{story.createdAt|date:'medium'}}</li>
           <li><strong>Last Edited:</strong> {{story.updatedAt|date:'medium'}}</li>
         </ul>
@@ -41,8 +41,10 @@
     </ul>
   </div>
   <div class="large-3 columns" ng-if="(canAuthor && story.author.id == user.id) || isAdmin">
-    <a ng-href="/cms/stories/{{story.id}}/edit" class="button expand secondary"><i class="fa fa-edit"></i> Edit story</a>
-    <button ng-click="deleteStory(story)" class="button expand alert" ng-if="isAdmin"><i class="fa fa-trash-o"></i> Delete story</button>
+    <ul class="small-block-grid-2 medium-block-grid-1">
+      <li><a ng-href="/cms/stories/{{story.id}}/edit" class="button expand secondary"><i class="fa fa-edit"></i> Edit story</a></li>
+      <li><button ng-click="deleteStory(story)" class="button expand alert" ng-if="isAdmin"><i class="fa fa-trash-o"></i> Delete story</button></li>
+    </ul>
   </div>
 
   <div class="large-12 columns" ng-if="!$last">

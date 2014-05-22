@@ -11,7 +11,8 @@ module.exports = {
       title: 'Sinead',
       ngApp: 'sineadWWW',
       ngController: 'WWWCtrl',
-      bodyId: 'www'
+      bodyId: 'www',
+      useFullLayout: true
     });
   },
 
@@ -20,7 +21,8 @@ module.exports = {
       title: 'Sinead CMS',
       ngApp: 'sineadCMS',
       ngController: 'CMSCtrl',
-      bodyId: 'cms'
+      bodyId: 'cms',
+      useFullLayout: true
     });
   }
 };

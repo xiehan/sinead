@@ -11,7 +11,8 @@ var AuthController = {
       return res.redirect('/cms');
     }
     var data = {
-      username: req.flash('username')
+      username: req.flash('username'),
+      bodyId: 'login'
     }
     var msg = req.flash('error') || req.flash('message');
     if (msg && msg.length > 0) {
@@ -30,7 +31,8 @@ var AuthController = {
       if (!user) {
         return res.view('auth/login', {
           username: req.body.username,
-          message: info.message
+          message: info.message,
+          bodyId: 'login'
         });
       }
       req.logIn(user, function (err) {
@@ -49,7 +51,9 @@ var AuthController = {
     if (req.isAuthenticated()) {
       return res.redirect('/cms');
     }
-    res.view();
+    res.view({
+      bodyId: 'signup'
+    });
   },
   signupProcess: function (req, res, next) {
     if (req.isAuthenticated()) {

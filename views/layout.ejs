@@ -43,8 +43,20 @@
 
   <body<% if (typeof bodyId !== 'undefined') { %> id="<%= bodyId %>"<% } %>>
 
+    <% if (typeof ngApp !== 'undefined' && typeof ngController !== 'undefined') { %>
+      <% include common/nav %>
+    <% } %>
+
+    <% if (typeof useFullLayout !== 'undefined' && useFullLayout === true) { %>
+      <% include common/header %>
+    <% } %>
+
     <!-- Include the view file for the current controller/route -->
     <%- body %>
+
+    <% if (typeof useFullLayout !== 'undefined' && useFullLayout === true) { %>
+      <% include common/footer %>
+    <% } %>
 
 
     <!--
@@ -89,6 +101,13 @@
     <script type="text/javascript" src="/templates/cms.tpls.js"></script>
     <script type="text/javascript" src="/templates/www.tpls.js"></script>
     <!--TEMPLATES END-->
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.2/js/vendor/fastclick.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.2/js/foundation/foundation.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.2/js/foundation/foundation.topbar.min.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
 
   </body>
 </html>

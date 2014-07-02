@@ -8,7 +8,7 @@
 module.exports = {
   www: function (req, res) {
     return res.view('www/index', {
-      title: 'Sinead',
+      title: sails.config.appName,
       ngApp: 'sineadWWW',
       ngController: 'WWWCtrl',
       bodyId: 'www',
@@ -18,7 +18,7 @@ module.exports = {
 
   cms: function (req, res) {
     return res.view('cms/index', {
-      title: 'Sinead CMS',
+      title: sails.config.appName + ' CMS',
       ngApp: 'sineadCMS',
       ngController: 'CMSCtrl',
       bodyId: 'cms',

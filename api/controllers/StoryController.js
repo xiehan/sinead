@@ -46,7 +46,7 @@ module.exports = {
     }
     Story.count().where(where).exec(function (err, num) {
       if (err) {
-        return res.send(500, err);
+        return res.serverError(err);
       }
       return res.json({ total: num });
     });
@@ -77,14 +77,14 @@ module.exports = {
     if (typeof targetUserId !== 'undefined' && targetUserId !== null) {
       User.findOneById(targetUserId).then(function (user) {
         if (!user) { // not sure if this can happen in the promise-based model?
-          return res.send(404, err);
+          return res.notFound();
         }
 
         var stories = Story.find().where(where).sort(sort).skip(skip).limit(limit).then(function (stories) {
           return stories;
         }).fail(function (err) {
           // Unexpected error occurred-- skip to the app's default error (500) handler
-          return res.send(500, err);
+          return res.serverError(err);
         });
 
         return [stories, user];
@@ -95,10 +95,10 @@ module.exports = {
         return res.json(stories, 200);
       }).fail(function (err) {
         // Unexpected error occurred-- skip to the app's default error (500) handler
-        return res.send(500, err);
+        return res.serverError(err);
       });
     } else {
-      return res.send(400, 'You must supply a user ID to retrieve stories for!');
+      return res.badRequest();
     }
   },
 
@@ -110,7 +110,7 @@ module.exports = {
     if (typeof targetStoryId !== 'undefined' && targetStoryId !== null) {
       Story.findOneById(targetStoryId).then(function (story) {
         if (!story) { // not sure if this can happen in the promise-based model?
-          return res.send(404, err);
+          return res.notFound();
         }
 
         var user = User.findOneById(story.author).then(function (user) {
@@ -126,7 +126,7 @@ module.exports = {
         return res.json(story, 200);
       }).fail(function (err) {
         // Unexpected error occurred-- skip to the app's default error (500) handler
-        return res.send(500, err);
+        return res.serverError(err);
       });
     } else {
       var where = {},
@@ -181,7 +181,7 @@ module.exports = {
         return res.json(stories, 200);
       }).fail(function (err) {
         // Unexpected error occurred-- skip to the app's default error (500) handler
-        return res.send(500, err);
+        return res.serverError(err);
       });
     }
   },
@@ -190,7 +190,7 @@ module.exports = {
     // @TODO parse relevant params and pass them to create
     Story.create({ author: req.user.id }).done(function (err, story) {
       if (err) {
-        return res.send(500, err);
+        return res.serverError(err);
       }
       return res.json(story, 201);
     });

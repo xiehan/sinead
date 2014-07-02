@@ -32,12 +32,12 @@ module.exports = {
     User.findOneById(userId).exec(function (err, user) {
       // Unexpected error occurred-- skip to the app's default error (500) handler
       if (err) {
-        return res.send(500, err);
+        return res.serverError(err);
       }
 
       // This really shouldn't happen, but just in case...
       if (!user) {
-        return res.send(404, err);
+        return res.notFound();
       }
 
       return res.json(user, 200);

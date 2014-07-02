@@ -105,7 +105,6 @@ Because there's so much, I've broken it up into three categories: short-term, me
 * Get production mode working (with minified CSS/JS)
 * Make sure the CMS JS code doesn't get loaded when rendering the WWW side (and ideally vice-versa, although that isn't as important)
 * Add a subtle icon to the WWW side that lets a logged-in story author go straight into that story in the CMS to edit it
-* Add an admin dashboard to control some basic configuration settings (eg. whether or not anyone can sign up, whether or not new sign-ups automatically have posting access, whether or not anyone can edit (maybe), etc.)
 * Add a basic preview mode to stories in the CMS
 * Add support for prev/next navigation on individual story pages, ideally with swipe for mobile devices
 * Add support for slug-based story URLs (maybe)

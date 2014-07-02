@@ -3,18 +3,19 @@
 // @Mantish https://gist.github.com/Mantish/6366642
 // @anhnt https://gist.github.com/anhnt/8297229
 
-var passport = require('passport');
+var _ = require('underscore'),
+    passport = require('passport');
 
 var AuthController = {
   login: function (req, res) {
     if (req.isAuthenticated()) {
       return res.redirect('/cms');
     }
-    res.view({
+    res.view(_.extend({}, sails.config.siteSettingsPublic, {
       bodyId: 'login',
       message: req.flash('error') || req.flash('message'),
       username: req.flash('username')
-    });
+    }));
   },
   loginProcess: function (req, res, next) {
     if (req.isAuthenticated()) {
@@ -45,13 +46,16 @@ var AuthController = {
     if (req.isAuthenticated()) {
       return res.redirect('/cms');
     }
-    res.view({
+    if (typeof sails.config.siteSettings.allowSignup !== 'undefined' && sails.config.siteSettings.allowSignup === false) {
+      return res.forbidden('Currently, we do not allow anyone to sign up');
+    }
+    res.view(_.extend({}, sails.config.siteSettingsPublic, {
       bodyId: 'signup',
       message: req.flash('error'),
       name: req.flash('name'),
       username: req.flash('username'),
       recaptcha_form: sails.config.recaptcha ? sails.config.recaptcha.toHTML({ message: req.flash('recaptchaErr') }) : undefined
-    });
+    }));
   },
   signupProcess: function (req, res, next) {
     function processSignup() {
@@ -84,6 +88,9 @@ var AuthController = {
 
     if (req.isAuthenticated()) {
       return res.redirect('/cms');
+    }
+    if (typeof sails.config.siteSettings.allowSignup !== 'undefined' && sails.config.siteSettings.allowSignup === false) {
+      return res.forbidden('Currently, we do not allow anyone to sign up');
     }
     if (sails.config.recaptcha) {
       var data = {

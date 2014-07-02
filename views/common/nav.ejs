@@ -3,25 +3,27 @@
   <nav class="top-bar" data-topbar data-options="sticky_on: small">
     <ul class="title-area">
       <li class="name">
-        <h1 ng-if="!loggedIn"><a href="/"<% if (typeof bodyId === 'undefined' || bodyId !== 'www') { %> target="_self"<% } %>>Sinead</a></h1>
-        <h1 ng-if="loggedIn"><a href="/cms"<% if (typeof bodyId === 'undefined' || bodyId !== 'cms') { %> target="_self"<% } %>>Sinead CMS</a></h1>
+        <h1 ng-if="!loggedIn"><a href="/"<% if (bodyId !== 'www') { %> target="_self"<% } %>><%= title %></a></h1>
+        <h1 ng-if="loggedIn"><a href="/cms"<% if (bodyId !== 'cms') { %> target="_self"<% } %>><%= title %></a></h1>
       </li>
       <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
     </ul>
     <section class="top-bar-section" ng-cloak>
       <ul class="left" ng-if="loggedIn">
-        <% if (typeof bodyId !== 'undefined' && bodyId === 'cms') { %>
+        <% if (bodyId === 'cms') { %>
         <li><a href="#" ng-click="createStory()" ng-if="canAuthor"><i class="fa fa-plus"></i> Write story</a></li>
         <% } else { %>
         <li><a href="/cms/stories/write" target="_self" ng-if="canAuthor"><i class="fa fa-plus"></i> Write story</a></li>
         <% } %>
       </ul>
       <ul class="right" ng-if="!loggedIn">
+        <% if (allowSignup) { %>
         <li class="has-form"><a href="/signup" target="_self" class="button">Sign up</a></li>
+        <% } %>
         <li class="has-form"><a href="/login" target="_self" class="button">Log in</a></li>
       </ul>
       <ul class="right" ng-if="loggedIn">
-        <% if (typeof bodyId !== 'undefined' && bodyId === 'cms') { %>
+        <% if (bodyId === 'cms') { %>
         <li><a href="/" target="_self">View site</a></li>
         <% } %>
         <li class="has-form"><a href="/logout" target="_self" class="button">Log out</a></li>

@@ -1,0 +1,52 @@
+<form id="siteSettingsList" role="form">
+  <table class="full-width">
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Site title</td>
+        <td><input type="text" ng-model="settings.siteTitle" /></td>
+      </tr>
+      <tr>
+        <td>Site subtitle</td>
+        <td><input type="text" ng-model="settings.siteSubtitle" /></td>
+      </tr>
+      <tr>
+        <td>Site contact e-mail address</td>
+        <td><input type="email" ng-model="settings.siteEmail" /></td>
+      </tr>
+      <tr>
+        <td>Site Twitter account</td>
+        <td>
+          <div class="row collapse">
+            <div class="small-1 columns">
+              <span class="prefix">@</span>
+            </div>
+            <div class="small-11 columns">
+              <input type="text" ng-model="settings.siteTwitter" maxlength="15" />
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Allow anyone to sign up?</td>
+        <td><input type="checkbox" ng-model="settings.allowSignup" /></td>
+      </tr>
+      <tr>
+        <td>Require moderator permission before new users can post stories?</td>
+        <td><input type="checkbox" ng-model="settings.requireManualPostingAccessRights" /></td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+<div class="row collapse">
+  <div class="small-8 columns small-centered text-center">
+    <button class="button success" disabled="disabled" ng-if="isSaving">Saving...</button>
+    <button class="button success" ng-click="updateSettings()" ng-if="!isSaving && isSaved">Saved!</button>
+    <button class="button" ng-click="updateSettings()" ng-if="!isSaving && !isSaved">Save changes</button>
+  </div>
+</div>

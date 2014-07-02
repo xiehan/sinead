@@ -1,6 +1,7 @@
 module.exports = {
 
   appName: 'Sinead',
+  appContactEmail: 'nara@nara-designs.com',
 
   // The `port` setting determines which TCP port your app will be deployed on
   // Ports are a transport-layer concept designed to allow many different

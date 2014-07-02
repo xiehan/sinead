@@ -28,7 +28,7 @@ module.exports.policies = {
 
   UserController: {
     find:    true,
-    findAll:  ['isAuthenticated', 'canModifyUser'],
+    findAll: ['isAuthenticated', 'canModifyUser'],
     update:  ['isAuthenticated', 'canModifyUser'],
     destroy: ['isAuthenticated', 'canModifyUser'],
     identify: true
@@ -41,6 +41,12 @@ module.exports.policies = {
     destroy:       ['isAuthenticated', 'canEditStories'],
     count:         true,
     findAllByUser: true
+  },
+
+  SiteSettingsController: {
+    '*': ['isAuthenticated', 'canModifySiteSettings'],
+    create: false,
+    destroy: false
   }
 };
 

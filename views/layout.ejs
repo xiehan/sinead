@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"<% if (typeof ngApp !== 'undefined' && typeof ngController !== 'undefined') { %> ng-app="<%= ngApp %>" ng-controller="<%= ngController %>"<% } %>>
+<html lang="en"<% if (ngApp !== null && ngController !== null) { %> ng-app="<%= ngApp %>" ng-controller="<%= ngController %>"<% } %>>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
@@ -42,20 +42,20 @@
     <![endif]-->
   </head>
 
-  <body<% if (typeof bodyId !== 'undefined') { %> id="<%= bodyId %>"<% } %>>
+  <body<% if (bodyId !== null) { %> id="<%= bodyId %>"<% } %>>
 
-    <% if (typeof ngApp !== 'undefined' && typeof ngController !== 'undefined') { %>
+    <% if (ngApp !== null && ngController !== null) { %>
       <% include common/nav %>
     <% } %>
 
-    <% if (typeof useFullLayout !== 'undefined' && useFullLayout === true) { %>
+    <% if (useFullLayout) { %>
       <% include common/header %>
     <% } %>
 
     <!-- Include the view file for the current controller/route -->
     <%- body %>
 
-    <% if (typeof useFullLayout !== 'undefined' && useFullLayout === true) { %>
+    <% if (useFullLayout) { %>
       <% include common/footer %>
     <% } %>
 

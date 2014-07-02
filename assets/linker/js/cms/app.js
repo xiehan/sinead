@@ -191,6 +191,33 @@ angular
               }
             }
           })
+        .state('cms.site', {
+          abstract: true,
+          url: '^/cms/site'
+        })
+          .state('cms.site.settings', {
+            url: '/settings/edit',
+            resolve: {
+              isAdmin: ['$q', 'user', function ($q, user) {
+                if (!user.isAdmin) {
+                  return $q.reject('You are not an administrator!');
+                }
+                return true;
+              }],
+              settings: ['SiteSettings', function (SiteSettings) {
+                return SiteSettings.get().$promise;
+              }]
+            },
+            views: {
+              'mainContent@cms': {
+                templateUrl: 'cms/site/site_settings.tpl.html',
+                controller: 'SiteSettingsCtrl'
+              },
+              'sidebarContent@cms': {
+                templateUrl: 'cms/site/site_sidebar.tpl.html'
+              }
+            }
+          })
     ;
     $urlRouterProvider.otherwise('/cms');
   }])
@@ -290,6 +317,21 @@ angular
         $scope.users = $.grep(users, function (o, i) {
           return o.id === _user.id;
         }, true);
+      });
+    };
+  }])
+
+  .controller('SiteSettingsCtrl', ['$scope', '$timeout', '$state', 'settings', function ($scope, $timeout, $state, settings) {
+    $scope.settings = settings;
+
+    $scope.updateSettings = function () {
+      $scope.isSaving = true;
+      settings.$update().then(function () {
+        $scope.isSaving = false;
+        $scope.isSaved = true;
+        $timeout(function () {
+          $scope.isSaved = false;
+        }, 3000);
       });
     };
   }])

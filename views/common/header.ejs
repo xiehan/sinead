@@ -2,8 +2,8 @@
 <header class="row">
   <div class="large-12 columns">
     <h1>
-    	<% if (typeof bodyId !== 'undefined' && bodyId === 'www') { %><a href="/"><% } %>Sinead<% if (typeof bodyId !== 'undefined' && bodyId === 'www') { %></a><% } %>
-    	<small>A content management system for the 21st Century.</small>
+    	<% if (bodyId === 'www') { %><a href="/"><% } %><%= title %><% if (bodyId === 'www') { %></a><% } %>
+    	<% if (subtitle) { %><small><%= subtitle %></small><% } %>
     </h1>
     <hr />
   </div>

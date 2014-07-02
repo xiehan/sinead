@@ -41,6 +41,14 @@ angular
     });
   }])
 
+  .factory('SiteSettings', ['$resource', function ($resource) {
+    return $resource('/api/sitesettings/:id', { id: 1 }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  }])
+
   .factory('CsrfToken', ['$resource', function ($resource) {
     return $resource('/csrfToken');
   }])

@@ -8,7 +8,8 @@
  * http://sailsjs.org/#documentation
  */
 
-var Recaptcha = require('re-captcha'),
+var _ = require('underscore'),
+    Recaptcha = require('re-captcha'),
     async = require('async');
 
 module.exports.bootstrap = function (cb) {
@@ -82,8 +83,45 @@ module.exports.bootstrap = function (cb) {
     done();
   }
 
+  function processSiteSettings(settings, done) {
+    sails.config.siteSettings = settings.toObject(); // intended for internal use
+    sails.config.siteSettingsPublic = _.extend({
+      bodyId: null,
+      ngApp: null,
+      ngController: null,
+      useFullLayout: false
+    }, settings.toDisplayObject()); // intended for external use (user-facing code)
+    done();
+  }
+
+  function initSiteSettings(done) {
+    SiteSettings.create({
+      siteTitle: sails.config.appName,
+      siteEmail: sails.config.appContactEmail
+    }).done(function (err, settings) {
+      if (err || !settings) {
+        return done(err);
+      }
+      processSiteSettings(settings, done);
+    });
+  }
+
+  function loadSiteSettings(done) {
+    SiteSettings.findOneById(1).done(function (err, settings) {
+      if (err) {
+        return done(err);
+      }
+      if (!settings) { 
+        initSiteSettings(done);
+      } else {
+        processSiteSettings(settings, done);
+      }
+    });
+  }
+
   async.parallel([
     boostrapPassportMiddleware,
-    setupRecaptcha
+    setupRecaptcha,
+    loadSiteSettings
   ], cb);
 };

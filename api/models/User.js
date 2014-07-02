@@ -88,6 +88,10 @@ module.exports = {
         values.isAdmin = false;
         values.isVerified = false;
         values.canAuthor = false;
+        var requireManualPostingAccessRights = sails.config.siteSettings.requireManualPostingAccessRights;
+        if (typeof requireManualPostingAccessRights !== 'undefined') {
+          values.canAuthor = !requireManualPostingAccessRights;
+        }
       }
       hashPassword(values, next);
     });

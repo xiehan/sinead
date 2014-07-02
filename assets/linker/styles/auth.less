@@ -1,26 +1,15 @@
-#signup,
-#login {
-  > .row {
-    &:first-child {
-      margin-top: 40px;
-    }
-
-    &:last-of-type {
-      margin-bottom: 40px;
-    }
-  }
-}
-
 .signup-panel, .login-panel {
   border-radius: 5px;
   border: 1px solid #ccc;
   padding: 15px;
-  margin-top: 30px;
+  margin-top: 20px;
 
-  i {
-    font-size: 30px;
-    line-height: 50px;
-    color: #999;
+  .prefix {
+    i {
+      font-size: 30px;
+      line-height: 50px;
+      color: #999;
+    }
   }
 
   form {
@@ -38,16 +27,26 @@
   p {
     font-size: 13px;
     font-weight: 200;
-    margin-left: 25%;
-  }
 
-  .columns > p {
-    margin-left: 0;
-    font-size: 11px;
-    margin-bottom: 3rem;
+    &.addendum {
+      margin-left: 0;
+      font-size: 11px;
+      margin-bottom: 3rem;
+    }
   }
+}
 
-  .button {
-    margin-left: 35%;
+@media (min-width: 768px) {
+  #signup,
+  #login {
+    > .row {
+      &:first-child {
+        margin-top: 20px;
+      }
+
+      &:last-of-type {
+        margin-bottom: 40px;
+      }
+    }
   }
 }

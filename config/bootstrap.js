@@ -8,7 +8,8 @@
  * http://sailsjs.org/#documentation
  */
 
-var async = require('async');
+var Recaptcha = require('re-captcha'),
+    async = require('async');
 
 module.exports.bootstrap = function (cb) {
   // ********************************************
@@ -71,7 +72,18 @@ module.exports.bootstrap = function (cb) {
     done();
   }
 
+  function setupRecaptcha(done) {
+    if (sails.config.RECAPTCHA_PUBLIC_KEY && sails.config.RECAPTCHA_PRIVATE_KEY) {
+      // I'm not sure if doing the following violates some sort of principle (I kind of feel like it does),
+      // but if we don't do it here, we'd potentially have to re-init Recaptcha across different controllers,
+      // which seems silly. It should really only have to be done once, and then be good while the app is running.
+      sails.config.recaptcha = new Recaptcha(sails.config.RECAPTCHA_PUBLIC_KEY, sails.config.RECAPTCHA_PRIVATE_KEY);
+    }
+    done();
+  }
+
   async.parallel([
-    boostrapPassportMiddleware
+    boostrapPassportMiddleware,
+    setupRecaptcha
   ], cb);
 };

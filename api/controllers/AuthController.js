@@ -10,15 +10,11 @@ var AuthController = {
     if (req.isAuthenticated()) {
       return res.redirect('/cms');
     }
-    var data = {
-      username: req.flash('username'),
-      bodyId: 'login'
-    }
-    var msg = req.flash('error') || req.flash('message');
-    if (msg && msg.length > 0) {
-      data.message = msg;
-    }
-    res.view(data);
+    res.view({
+      bodyId: 'login',
+      message: req.flash('error') || req.flash('message'),
+      username: req.flash('username')
+    });
   },
   loginProcess: function (req, res, next) {
     if (req.isAuthenticated()) {
@@ -29,11 +25,9 @@ var AuthController = {
         return next(err);
       }
       if (!user) {
-        return res.view('auth/login', {
-          username: req.body.username,
-          message: info.message,
-          bodyId: 'login'
-        });
+        req.flash('username', req.body.username);
+        req.flash('message', info.message);
+        return res.redirect('/login');
       }
       req.logIn(user, function (err) {
         if (err) {

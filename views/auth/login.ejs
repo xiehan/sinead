@@ -1,11 +1,11 @@
 <div class="row">
-  <div class="large-6 columns">
-  <% if (typeof message !== 'undefined') { %>
+  <div class="large-6 columns small-centered">
+  <% if (typeof message !== 'undefined' && message.length > 0) { %>
     <div data-alert class="alert-box alert">
       <%= message %>
       <a href="#" class="close">&times;</a>
     </div>
-    <% } %>
+  <% } %>
     <div class="login-panel">
       <p class="welcome"><%= __('Please log in') %></p>
       <form role="form" action="/login" method="post">
@@ -26,9 +26,17 @@
             <input type="password" name="password" placeholder="password" required />
           </div>
         </div>
-        <input type="submit" class="button" value="Log in" />
+        <div class="row collapse">
+          <div class="small-10 columns small-centered text-center">
+            <input type="submit" class="button" value="Log in" />
+          </div>
+        </div>
       </form>
-      <p>Don't have an account? <a href="/signup">Sign up here &raquo</a></p>
+      <div class="row collapse">
+        <div class="small-10 columns small-centered text-center">
+          <p>Don't have an account? <a href="/signup">Sign up here &raquo</a></p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

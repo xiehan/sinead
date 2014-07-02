@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="large-6 columns">
+  <div class="large-6 columns small-centered">
     <div class="signup-panel">
       <p class="welcome"><%= __('Sign up') %></p>
       <form role="form" action="/signup" method="post">
@@ -38,12 +38,20 @@
         </div>
         <div class="row collapse">
           <div class="small-12 columns">
-            <p><strong>N.B.</strong> Passwords are encrypted but are submitted over plaintext, so use a good password, but probably not your bank password.</p>
+            <p class="addendum"><strong>N.B.</strong> Passwords are encrypted but are submitted over plaintext, so use a good password, but probably not your bank password.</p>
           </div>
         </div>
-        <input type="submit" class="button" value="Sign Up!" />
+        <div class="row collapse">
+          <div class="small-10 columns small-centered text-center">
+            <input type="submit" class="button" value="Sign Up!" />
+          </div>
+        </div>
       </form>
-      <p>Already have an account? <a href="/login">Login here &raquo</a></p>
+      <div class="row collapse">
+        <div class="small-10 columns small-centered text-center">
+          <p>Already have an account? <a href="/login">Login here &raquo</a></p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

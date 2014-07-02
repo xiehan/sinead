@@ -136,7 +136,7 @@ module.exports = function (grunt) {
   grunt.loadTasks(depsPath + '/grunt-contrib-less/tasks');
   grunt.loadTasks(depsPath + '/grunt-contrib-coffee/tasks');
   grunt.loadNpmTasks('grunt-angular-templates');
-  grunt.loadNpmTasks('git-changelog');
+  grunt.loadNpmTasks('grunt-conventional-changelog');
 
   // Project configuration.
   grunt.initConfig({
@@ -475,26 +475,11 @@ module.exports = function (grunt) {
       }
     },
 
-    git_changelog: {
-      minimal: {
-        options: {
-          repo_url: '<%= pkg.repository.url %>',
-          appName: '<%= pkg.name %>',
-          version: '<%= pkg.version %>',
-          file: 'Home.md',
-          grep_commits: '^fix|^feat'
-        }
-      },
-      extended: {
-        options: {
-          repo_url: '<%= pkg.repository.url %>',
-          appName: '<%= pkg.name %>: <%= pkg.description %>',
-          version: '<%= pkg.version %>',
-          file: 'CHANGELOG.md',
-          grep_commits: '^fix|^feat|^docs|^refactor|^chore|BREAKING'
-        }
+    changelog: {
+      options: {
+        // edit here on a case-by-case basis if needed
       }
-    }
+    },
   });
 
   // When Sails is lifted:
@@ -557,7 +542,7 @@ module.exports = function (grunt) {
   grunt.registerTask('heroku:production', 'prod');
 
   grunt.registerTask('release', [
-    'git_changelog'
+    'changelog'
   ]);
 
   // When API files are changed:

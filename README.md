@@ -67,8 +67,9 @@ The good news is that if uptime and page load speed aren't critical, then it's p
   * `MYSQL_PASSWORD`
   * `MYSQL_SERVER`
   * `MYSQL_USER`
-12. We're ready to deploy! Run `git push heroku master`
-13. Finally, if you want to ensure that you can run your app on the free tier, run `heroku ps:scale web=1`
+12. (OPTIONAL) If you want to use a captcha on the signup form, then sign up for your API keys at [google.com/recaptcha](https://www.google.com/recaptcha/) and `heroku config:set RECAPTCHA_PUBLIC_KEY=` your public key, and `heroku config:set RECAPTCHA_PRIVATE_KEY=` your private key
+13. We're ready to deploy! Run `git push heroku master`
+14. Finally, if you want to ensure that you can run your app on the free tier, run `heroku ps:scale web=1`
 
 If you followed all the steps, you should be good to go!
 
@@ -99,10 +100,8 @@ Because there's so much, I've broken it up into three categories: short-term, me
 
 #### Short-term
 
-* Clean up some of the visual/UI design elements, particularly the header/top nav, which is just not great on mobile
 * Figure out what to do with that sidebar on the WWW side &mdash; whether it's actually adding the ability to feature a story, or something else
 * Add AngularJS to the sign-up and login forms for improved front-end form validation
-* Add a captcha to the sign-up form
 * Get production mode working (with minified CSS/JS)
 * Make sure the CMS JS code doesn't get loaded when rendering the WWW side (and ideally vice-versa, although that isn't as important)
 * Add a subtle icon to the WWW side that lets a logged-in story author go straight into that story in the CMS to edit it

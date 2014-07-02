@@ -23,7 +23,8 @@
     "passport-local": "0.1.6",
     "bcrypt": "0.7.7",
     "async": "0.2.9",
-    "git-changelog": "^0.1.1"
+    "git-changelog": "^0.1.1",
+    "re-captcha": "0.0.3"
   },
   "scripts": {
     "start": "node app.js",

@@ -1,4 +1,9 @@
 <% if (twitter) { %><meta property="twitter:site" content="@<%= twitter %>" /><% } %>
 <meta property="twitter:card" content="summary" />
-<meta property="twitter:title" content="<%= title %><% if (subtitle) { %>: <%= subtitle %><% } %>" />
-<meta property="twitter:description" content="<%= description %>" />
+<meta property="twitter:title" content="<%= title %><% if (subtitle) { %>: <%= subtitle %><% } %>" ng-if="!twitterCardTitle" />
+<meta property="twitter:description" content="<%= description %>" ng-if="!twitterCardDescription" />
+<% if (bodyId == 'www') { %>
+<meta property="twitter:title" content="{{twitterCardTitle}}" ng-if="twitterCardTitle" />
+<meta property="twitter:description" content="{{twitterCardDescription}}" ng-if="twitterCardDescription" />
+<meta property="twitter:creator" content="@{{twitterCardAuthorTwitter}}" ng-if="twitterCardAuthorTwitter" />
+<% } %>

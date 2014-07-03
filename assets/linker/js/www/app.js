@@ -92,7 +92,19 @@ angular
               templateUrl: 'www/user/profile_sidebar.tpl.html',
               controller: 'SingleStorySidebarCtrl'
             }
-          }
+          },
+          onEnter: ['$rootScope', '$filter', 'story', function ($rootScope, $filter, story) {
+            $rootScope.isStoryPage = true;
+            $rootScope.twitterCardAuthorTwitter = story.author.twitter;
+            $rootScope.twitterCardTitle = $filter('shorten')(story.title, 70 - $rootScope.siteTitle.length) + ' | ' + $rootScope.siteTitle;
+            $rootScope.twitterCardDescription = $filter('shorten')(story.content, 200);
+          }],
+          onExit: ['$rootScope', function ($rootScope) {
+            $rootScope.isStoryPage = false;
+            $rootScope.twitterCardTitle = null;
+            $rootScope.twitterCardAuthorTwitter = null;
+            $rootScope.twitterCardDescription = null;
+          }]
         })
         .state('www.author', {
           url: '^/authors/:userId',
@@ -121,7 +133,28 @@ angular
             'sidebarContent': {
               templateUrl: 'www/sidebar.tpl.html'
             }
-          }
+          },
+          onEnter: ['$rootScope', 'author', 'storyCount', function ($rootScope, author, storyCount) {
+            $rootScope.isAuthorProfile = true;
+            $rootScope.twitterCardAuthorTwitter = author.twitter;
+            $rootScope.twitterCardTitle = 'Author profile for ' + author.name + ' | ' + $rootScope.siteTitle;
+            $rootScope.twitterCardDescription = author.name + ' is the author of ' + storyCount;
+            if (storyCount === 1) {
+              $rootScope.twitterCardDescription += ' story';
+            } else {
+              $rootScope.twitterCardDescription += ' stories';
+            }
+            $rootScope.twitterCardDescription += ' at ' + $rootScope.siteTitle;
+            if ($rootScope.siteSubtitle) {
+              $rootScope.twitterCardDescription += ': ' + $rootScope.siteSubtitle;
+            }
+          }],
+          onExit: ['$rootScope', function ($rootScope) {
+            $rootScope.isAuthorProfile = false;
+            $rootScope.twitterCardAuthorTwitter = null;
+            $rootScope.twitterCardTitle = null;
+            $rootScope.twitterCardDescription = null;
+          }]
         })
     ;
     $urlRouterProvider.otherwise('/');
@@ -132,6 +165,8 @@ angular
     $rootScope.isAdmin = false;
     $rootScope.canAuthor = false;
     $rootScope.newStoriesLoaded = false;
+    $rootScope.siteTitle = $('#siteTitleFromServer').text();
+    $rootScope.siteSubtitle = $('#siteSubtitleFromServer').text() || null;
   }])
 
   .controller('WWWCtrl', ['$scope', function ($scope) {
@@ -214,6 +249,21 @@ angular
       }
     };
   }])
+
+  .filter('shorten', function () {
+    return function (value, length) {
+      length = angular.isDefined(length) ? length : 200;
+      var s = $.trim($('<div>').append(value).text());
+      if (s.length > length) {
+        var maxLength = length - 3; // 3 for the ellipses
+        s = s.substring(0, maxLength);
+        if (s[s.length-1] !== '.') {
+          s += '...';
+        }
+      }
+      return s.replace('"', '\"');
+    };
+  })
 
 ;
 })();

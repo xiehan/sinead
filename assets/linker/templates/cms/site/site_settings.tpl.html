@@ -40,6 +40,14 @@
         <td>Require moderator permission before new users can post stories?</td>
         <td><input type="checkbox" ng-model="settings.requireManualPostingAccessRights" /></td>
       </tr>
+      <tr>
+        <td>Track user behavior using Google Analytics?</td>
+        <td><input type="checkbox" ng-model="settings.useGoogleAnalytics" /></td>
+      </tr>
+      <tr>
+        <td>Google Analytics Tracking ID</td>
+        <td><input type="text" ng-model="settings.googleAnalyticsID" ng-required="settings.useGoogleAnalytics" ng-disabled="!settings.useGoogleAnalytics" /></td>
+      </tr>
     </tbody>
   </table>
 </form>

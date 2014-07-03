@@ -39,6 +39,14 @@ module.exports = {
       type: 'boolean',
       defaultsTo: true
     },
+    useGoogleAnalytics: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+    googleAnalyticsID: {
+      type: 'string',
+      max: 20
+    },
 
     toJSON: function() {
       var obj = this.toObject();
@@ -53,7 +61,9 @@ module.exports = {
         title: obj.siteTitle,
         subtitle: _.isUndefined(obj.siteSubtitle) ? null : obj.siteSubtitle,
         twitter: _.isUndefined(obj.siteTwitter) ? null : obj.siteTwitter,
-        allowSignup: _.isUndefined(obj.allowSignup) ? true : obj.allowSignup
+        allowSignup: _.isUndefined(obj.allowSignup) ? true : obj.allowSignup,
+        useGoogleAnalytics: _.isUndefined(obj.useGoogleAnalytics) ? false : obj.useGoogleAnalytics,
+        GA_TRACKING_ID: _.isUndefined(obj.googleAnalyticsID) ? null : obj.googleAnalyticsID
       };
     }
 

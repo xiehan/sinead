@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="fragment" content="!" />
 
+    <% if (useTwitterCards && bodyId != 'cms') { %>
+    <% include common/social/twitter_card %>
+    <% } %>
+
     <title><%= title %></title>
 
     <!--
@@ -42,7 +46,7 @@
     <![endif]-->
 
     <% if (useGoogleAnalytics && GA_TRACKING_ID !== null && bodyId != 'cms') { %>
-      <% include common/social/google_analytics %>
+    <% include common/social/google_analytics %>
     <% } %>
   </head>
 

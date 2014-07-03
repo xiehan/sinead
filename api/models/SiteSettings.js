@@ -19,8 +19,12 @@ module.exports = {
     },
     siteSubtitle:  {
       type: 'string',
-      max: 100,
+      max: 70,
       defaultsTo: 'A content management system for the 21st Century.'
+    },
+    siteDescription:  {
+      type: 'string',
+      max: 200
     },
     siteEmail: {
       type: 'email',
@@ -47,6 +51,10 @@ module.exports = {
       type: 'string',
       max: 20
     },
+    useTwitterCards: {
+      type: 'boolean',
+      defaultsTo: false
+    },
 
     toJSON: function() {
       var obj = this.toObject();
@@ -60,10 +68,12 @@ module.exports = {
       return {
         title: obj.siteTitle,
         subtitle: _.isUndefined(obj.siteSubtitle) ? null : obj.siteSubtitle,
+        description: _.isUndefined(obj.siteDescription) ? '' : obj.siteDescription,
         twitter: _.isUndefined(obj.siteTwitter) ? null : obj.siteTwitter,
         allowSignup: _.isUndefined(obj.allowSignup) ? true : obj.allowSignup,
         useGoogleAnalytics: _.isUndefined(obj.useGoogleAnalytics) ? false : obj.useGoogleAnalytics,
-        GA_TRACKING_ID: _.isUndefined(obj.googleAnalyticsID) ? null : obj.googleAnalyticsID
+        GA_TRACKING_ID: _.isUndefined(obj.googleAnalyticsID) ? null : obj.googleAnalyticsID,
+        useTwitterCards: _.isUndefined(obj.useTwitterCards) ? false : obj.useTwitterCards
       };
     }
 

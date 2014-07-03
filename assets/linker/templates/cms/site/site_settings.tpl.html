@@ -9,11 +9,15 @@
     <tbody>
       <tr>
         <td>Site title</td>
-        <td><input type="text" ng-model="settings.siteTitle" /></td>
+        <td><input type="text" ng-model="settings.siteTitle" maxlength="30" /></td>
       </tr>
       <tr>
         <td>Site subtitle</td>
-        <td><input type="text" ng-model="settings.siteSubtitle" /></td>
+        <td><input type="text" ng-model="settings.siteSubtitle" maxlength="70" /></td>
+      </tr>
+      <tr>
+        <td>Site description (for search engines)</td>
+        <td><input type="text" ng-model="settings.siteDescription" maxlength="200" ng-required="settings.useTwitterCards" /></td>
       </tr>
       <tr>
         <td>Site contact e-mail address</td>
@@ -47,6 +51,10 @@
       <tr>
         <td>Google Analytics Tracking ID</td>
         <td><input type="text" ng-model="settings.googleAnalyticsID" ng-required="settings.useGoogleAnalytics" ng-disabled="!settings.useGoogleAnalytics" /></td>
+      </tr>
+      <tr>
+        <td>Enable Twitter cards?</td>
+        <td><input type="checkbox" ng-model="settings.useTwitterCards" /></td>
       </tr>
     </tbody>
   </table>

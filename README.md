@@ -109,8 +109,8 @@ Because there's so much, I've broken it up into three categories: short-term, me
 * Add support for prev/next navigation on individual story pages, ideally with swipe for mobile devices
 * Add support for slug-based story URLs (maybe)
 * Add the ability to add a corrections block to a published story
-* Figure out how to add Twitter cards to individual stories (and maybe the site as a whole, but only the WWW side)
-* Work on integrating other social sharing tools and Google Analytics, but keeping them configurable
+* Figure out how to add Twitter cards to individual stories and author profiles
+* Work on integrating other social sharing tools, but keeping them configurable
 * Investigate adding an API key check for POST/PUT/DELETE requests for added security
 * Better (custom) error pages / error handling in general
 * See if it's possible to get this working with MongoDB (and possibly other database types besides MySQL)

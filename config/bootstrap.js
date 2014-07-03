@@ -91,6 +91,16 @@ module.exports.bootstrap = function (cb) {
       ngController: null,
       useFullLayout: false
     }, settings.toDisplayObject()); // intended for external use (user-facing code)
+    sails.config.refreshSiteSettings = function (next) {
+      SiteSettings.findOneById(1).done(function (err, settings) {
+        if (err || !settings) {
+          return next(err);
+        }
+        sails.config.siteSettings = settings.toObject();
+        sails.config.siteSettingsPublic = _.extend(sails.config.siteSettingsPublic, settings.toDisplayObject());
+        next();
+      });
+    };
     done();
   }
 

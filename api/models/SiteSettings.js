@@ -63,6 +63,10 @@ module.exports = {
     delete values.createdAt;
     delete values.updatedAt;
     next();
+  },
+
+  afterUpdate: function (settings, next) {
+    sails.config.refreshSiteSettings(next);
   }
 
 };

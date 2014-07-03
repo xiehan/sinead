@@ -6,6 +6,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 
+var _ = require('underscore');
+
 module.exports = {
   tableName: 'site_settings',
 
@@ -38,16 +40,6 @@ module.exports = {
       defaultsTo: true
     },
 
-    beforeUpdate: function (values, next) {
-      if (values.createdAt) {
-        values.createdAt = values.createdAt.slice(0, 19).replace('T', ' ');
-      }
-      if (values.updatedAt) {
-        values.updatedAt = values.updatedAt.slice(0, 19).replace('T', ' ');
-      }
-      next();
-    },
-
     toJSON: function() {
       var obj = this.toObject();
       delete obj.createdAt;
@@ -65,6 +57,12 @@ module.exports = {
       };
     }
 
+  },
+
+  beforeValidation: function (values, next) {
+    delete values.createdAt;
+    delete values.updatedAt;
+    next();
   }
 
 };

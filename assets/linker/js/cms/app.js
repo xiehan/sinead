@@ -89,10 +89,7 @@ angular
             },
             'sidebarContent': {
               templateUrl: 'cms/sidebar.tpl.html'
-            },
-            // 'offCanvasContent': {
-            //   templateUrl: 'cms/sidebar.tpl.html'
-            // }
+            }
           }
         })
         .state('cms.story', {

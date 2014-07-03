@@ -6,6 +6,8 @@
  * @docs    :: http://sailsjs.org/#!documentation/models
  */
 
+var _ = require('underscore');
+
 module.exports = {
 
   attributes: {
@@ -25,16 +27,22 @@ module.exports = {
     }
   },
 
+  beforeValidation: function (values, next) {
+    if (!_.isUndefined(values.author)) {
+      if (_.isObject(values.author)) {
+        values.author = values.author.id;
+      } else if (_.isNaN(values.author) || !_.isNumber(values.author)) {
+        delete values.author; // this shouldn't happen, but if it ever does, just ignore the value altogether
+      }
+    }
+    delete values.createdAt;
+    delete values.updatedAt;
+    next();
+  },
+
   beforeUpdate: function (values, next) {
-    //values.author = values.author.id;
     if (values.publishAt) {
       values.publishAt = values.publishAt.slice(0, 19).replace('T', ' ');
-    }
-    if (values.createdAt) {
-      values.createdAt = values.createdAt.slice(0, 19).replace('T', ' ');
-    }
-    if (values.updatedAt) {
-      values.updatedAt = values.updatedAt.slice(0, 19).replace('T', ' ');
     }
     next();
   }

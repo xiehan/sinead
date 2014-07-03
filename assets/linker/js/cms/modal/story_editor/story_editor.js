@@ -49,12 +49,10 @@ angular
   })
 
   .controller('StoryEditorCtrl', ['$scope', '$timeout', 'tinymceDefaultOptions', '$modalInstance', 'story', function ($scope, $timeout, tinymceDefaultOptions, $modalInstance, story) {
-    var authorId = story.author.id,
-      isTimedSaving = false,
+    var isTimedSaving = false,
       needsTimedSave = false;
     var handleSave = function (callback) {
       $scope.isSaving = true;
-      story.author = authorId; // I shouldn't have to do this on the front-end but I don't have time to debug Sails right now...
       story.$update().then(function () {
         $scope.isSaving = false;
         $scope.isSaved = true;

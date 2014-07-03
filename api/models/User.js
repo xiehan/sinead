@@ -58,12 +58,15 @@ module.exports = {
       type: 'string'
       //url: true
     },
+
     // Override toJSON instance method to remove password value
     toJSON: function () {
       var obj = this.toObject();
       delete obj.password;
+      delete obj.updatedAt;
       return obj;
     },
+    
     validPassword: function (password, callback) {
       var obj = this.toObject();
       if (callback) {
@@ -72,8 +75,14 @@ module.exports = {
       return bcrypt.compareSync(password, obj.password);
     }
   },
-  
+
   // Lifecycle Callbacks
+  beforeValidation: function (values, next) {
+    delete values.createdAt;
+    delete values.updatedAt;
+    next();
+  },
+
   beforeCreate: function (values, next) {
     User.count().done(function (err, count) {
       if (err) {
@@ -96,13 +105,8 @@ module.exports = {
       hashPassword(values, next);
     });
   },
+
   beforeUpdate: function (values, next) {
-    if (values.createdAt) {
-      values.createdAt = values.createdAt.slice(0, 19).replace('T', ' ');
-    }
-    if (values.updatedAt) {
-      values.updatedAt = values.updatedAt.slice(0, 19).replace('T', ' ');
-    }
     if (values.password) {
       hashPassword(values, next);
     } else {

@@ -541,6 +541,8 @@ module.exports = function (grunt) {
   grunt.registerTask('heroku:development', 'build');
   grunt.registerTask('heroku:production', 'prod');
 
+  grunt.registerTask('heroku', 'heroku:production');
+
   grunt.registerTask('release', [
     'changelog'
   ]);

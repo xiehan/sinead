@@ -37,6 +37,6 @@
     "postinstall": "./node_modules/bower/bin/bower install && grunt heroku"
   },
   "main": "app.js",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "private": true
 }

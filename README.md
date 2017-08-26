@@ -1,7 +1,7 @@
 # sinead
 ### A content management system for the 21st Century
 
-After running continuously for over 3 years, the live demo was taken offline in August 2017; maintaining the Heroku instance just wasn't worth it to me anymore, and it's unlikely that I'll do work on this again anytime soon. But if you'd like to see a live demo for some reason, let me know and I can try to spin something up.
+_**NOTE**: After running continuously for over 3 years, the live demo was taken offline in August 2017; maintaining the Heroku instance just wasn't worth it to me anymore, and it's unlikely that I'll do work on this again anytime soon. But if you'd like to see a live demo for some reason, let me know and I can try to spin something up._
 
 ##### What is Sinead? Why this project?
 

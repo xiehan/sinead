@@ -1,10 +1,7 @@
 # sinead
 ### A content management system for the 21st Century
 
-See it in action: http://sinead.herokuapp.com/
-
-Currently, anyone can sign up but I have to individually give users access to post. Just shoot me an e-mail if you'd like posting access (as a way of testing the platform); obviously, it isn't meant to be used as a real blog.
-
+After running continuously for over 3 years, the live demo was taken offline in August 2017; maintaining the Heroku instance just wasn't worth it to me anymore, and it's unlikely that I'll do work on this again anytime soon. But if you'd like to see a live demo for some reason, let me know and I can try to spin something up.
 
 ##### What is Sinead? Why this project?
 
@@ -55,7 +52,7 @@ The good news is that if uptime and page load speed aren't critical, then it's p
 2. Install [Heroku Toolbelt](https://toolbelt.heroku.com/) on your local machine
 3. Type `heroku login` on the command line and add your SSH key(s)
 4. If you haven't already, Git clone or fork this repository and `cd` to the project's root directory
-5. `heroku apps:create <APP-NAME> --buildpack https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git`, replacing `<APP-NAME>` with whatever you want your app name and Herokuapp.com URL to be (eg. in my case it was `sinead` for [sinead.herokuapp.com](http://sinead.herokuapp.com))
+5. `heroku apps:create <APP-NAME> --buildpack https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git`, replacing `<APP-NAME>` with whatever you want your app name and Herokuapp.com URL to be
   * If you've already created the app previously, then do `heroku config:add BUILDPACK_URL=https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git`
 6. `heroku addons:add cleardb` to add ClearDB for a (free) MySQL database, unless you already have a MySQL setup you can use
 7. (OPTIONAL) `heroku addons:add papertrail` for a free and easy-to-use interface to access your logs (I recommend it &mdash; I didn't think I'd need it initially but it turned out to be a lifesaver)
